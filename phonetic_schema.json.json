@@ -1,0 +1,105 @@
+{
+  "word": "fantastic",
+  "pos": "adj.",
+  "meaning": "極好的、異想天開的、不可思議的",
+  "kk_full": "[fænˋtæstɪk]",
+  "ipa_full": "/fænˈtæstɪk/",
+  "syllables": [
+    {
+      "letters": "fan",
+      "phonetic": "fæn",
+      "is_stressed": false,
+      "tts_approx": "fan",
+      "phonemes": [
+        {
+          "symbol": "f",
+          "category": "consonant",
+          "voiced": false,
+          "articulation": "無聲唇齒音：上排牙齒輕觸下嘴唇，吹氣不震動聲帶。",
+          "tts_anchor": "fff",
+          "audio_id": "f"
+        },
+        {
+          "symbol": "æ",
+          "category": "vowel",
+          "voiced": true,
+          "articulation": "蝴蝶音（短母音）：嘴角向兩側拉開，下巴往下壓至約兩指寬，舌尖抵住下齒背。",
+          "tts_anchor": "at",
+          "audio_id": "ae"
+        },
+        {
+          "symbol": "n",
+          "category": "consonant",
+          "voiced": true,
+          "articulation": "有聲鼻音：舌尖貼住上齒齦，嘴巴微張，讓氣流與聲音從鼻腔共鳴出來。",
+          "tts_anchor": "nnn",
+          "audio_id": "n"
+        }
+      ]
+    },
+    {
+      "letters": "tas",
+      "phonetic": "ˈtæs",
+      "is_stressed": true,
+      "tts_approx": "tass",
+      "phonemes": [
+        {
+          "symbol": "t",
+          "category": "consonant",
+          "voiced": false,
+          "articulation": "無聲塞音：舌尖緊貼上齒齦後瞬間彈開送氣，聲帶不震動。",
+          "tts_anchor": "tuh",
+          "audio_id": "t"
+        },
+        {
+          "symbol": "æ",
+          "category": "vowel",
+          "voiced": true,
+          "articulation": "蝴蝶音（重讀短母音）：嘴角拉開、下巴下壓，因為在重音節，母音需唸得飽滿清晰。",
+          "tts_anchor": "at",
+          "audio_id": "ae"
+        },
+        {
+          "symbol": "s",
+          "category": "consonant",
+          "voiced": false,
+          "articulation": "無聲摩擦音：上下齒靠近，氣流從齒縫吹出，發出如蛇吐信的嘶嘶聲。",
+          "tts_anchor": "sss",
+          "audio_id": "s"
+        }
+      ]
+    },
+    {
+      "letters": "tic",
+      "phonetic": "tɪk",
+      "is_stressed": false,
+      "tts_approx": "tick",
+      "phonemes": [
+        {
+          "symbol": "t",
+          "category": "consonant",
+          "voiced": false,
+          "articulation": "無聲塞音：舌尖貼上齒齦後彈開。",
+          "tts_anchor": "tuh",
+          "audio_id": "t"
+        },
+        {
+          "symbol": "ɪ",
+          "category": "vowel",
+          "voiced": true,
+          "articulation": "放鬆短母音：嘴唇與舌頭完全放鬆，開口度比長音 /i/ 略大，發音短促有力。",
+          "tts_anchor": "ih",
+          "audio_id": "ih"
+        },
+        {
+          "symbol": "k",
+          "category": "consonant",
+          "voiced": false,
+          "articulation": "無聲舌根塞音：舌根抬起頂住軟顎後放開送氣（字尾可略微收音）。",
+          "tts_anchor": "kuh",
+          "audio_id": "k"
+        }
+      ]
+    }
+  ]
+}
