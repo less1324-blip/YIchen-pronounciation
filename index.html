@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>英語音標拆解與回音發音訓練器</title>
+  <meta name="author" content="懿城文教機構-林哲宇">
+  <meta name="copyright" content="懿城文教機構-林哲宇">
+  <title>英語音標拆解與回音發音訓練系統 | 懿城文教機構-林哲宇</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     .phoneme-btn { transition: all 0.15s ease; }
@@ -16,20 +18,31 @@
     .recording-pulse { animation: pulse-ring 1.5s infinite; }
   </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen font-sans p-4 md:p-8">
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans p-4 md:p-8 flex flex-col justify-between">
 
-  <div class="max-w-4xl mx-auto space-y-6">
-    <!-- 頂部標題與 API 設定 -->
+  <div class="max-w-4xl mx-auto w-full space-y-6">
+    <!-- 頂部標題、品牌標示與 API 設定 -->
     <header class="bg-slate-800/80 border border-slate-700 rounded-2xl p-6 shadow-lg flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
       <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-semibold mb-2">
+          <span>🏫 懿城文教機構 · 數位教學研發</span>
+          <span>|</span>
+          <span>林哲宇 老師監製</span>
+        </div>
         <h1 class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">
-          音標拆解與 Echo 發音教練
+          英語音標拆解與 Echo 發音教練
         </h1>
-        <p class="text-slate-400 text-sm mt-1">JSON 結構化音素拆解 · 口腔發音部位導航 · 回音記憶對比</p>
+        <p class="text-slate-400 text-sm mt-1">GitHub 雲端詞庫同步 · 口腔發音部位導航 · 回音記憶對比</p>
       </div>
-      <div class="flex items-center gap-2 w-full md:w-auto">
-        <input id="apiKeyInput" type="password" placeholder="貼上 Gemini API Key (選填)" 
+      <div class="flex flex-col items-end gap-2 w-full md:w-auto">
+        <input id="apiKeyInput" type="password" placeholder="貼上 Gemini API Key (動態擴充單字)" 
           class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-cyan-500 w-full md:w-64">
+        <div class="flex items-center gap-2 text-xs">
+          <span id="githubSyncStatus" class="text-amber-400">⏳ 正在連線至 GitHub 詞庫...</span>
+          <a href="https://github.com/less1324-blip/YIchen-pronounciation/blob/900cfe5de5616e727538f2f108435bd0be2af777/phonetic_schema.json.json" 
+             target="_blank" rel="noopener noreferrer"
+             class="text-cyan-400 hover:underline">查看 GitHub 原始檔 ↗</a>
+        </div>
       </div>
     </header>
 
@@ -42,12 +55,17 @@
           class="bg-cyan-600 hover:bg-cyan-500 text-white font-semibold px-6 py-3 rounded-xl transition flex items-center justify-center gap-2">
           <span>拆解音標</span>
         </button>
+        <button onclick="fetchGithubJson()" 
+          class="bg-slate-700 hover:bg-slate-600 text-slate-200 font-medium px-4 py-3 rounded-xl transition text-sm">
+          🔄 重新同步 GitHub
+        </button>
       </div>
-      <div class="mt-3 flex items-center gap-2 text-xs text-slate-400">
-        <span>內建範例快速載入：</span>
-        <button onclick="loadPreset('fantastic')" class="px-2.5 py-1 bg-slate-700 hover:bg-slate-600 rounded text-cyan-300">fantastic</button>
-        <button onclick="loadPreset('phenomenon')" class="px-2.5 py-1 bg-slate-700 hover:bg-slate-600 rounded text-cyan-300">phenomenon</button>
-        <span class="ml-auto text-slate-500">*填入 API Key 即可即時拆解任意單字</span>
+      <div class="mt-3 flex flex-wrap items-center gap-2 text-xs text-slate-400">
+        <span>詞庫快速載入：</span>
+        <div id="presetButtons" class="flex flex-wrap gap-2">
+          <!-- 由 GitHub JSON 與內建詞庫動態產生按鈕 -->
+        </div>
+        <span class="ml-auto text-slate-500">*填入 API Key 即可即時拆解任意新單字</span>
       </div>
     </section>
 
@@ -92,47 +110,4 @@
         <div id="articulationBox" class="mt-5 bg-slate-900/90 border border-cyan-500/40 rounded-xl p-4 flex items-start gap-3">
           <div class="text-2xl">👄</div>
           <div>
-            <div class="text-sm font-bold text-cyan-400" id="activePhonemeTitle">點擊上方任一音標積木查看發音要領</div>
-            <p class="text-slate-300 text-sm mt-1" id="activePhonemeDesc">系統會播放該音素的標準近似音，並在此顯示舌位、唇形與聲帶震動提示。</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- 步驟 2：Echo Method 回音跟讀與錄音比對區 -->
-      <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-6 shadow-lg">
-        <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-400 mb-4">
-          步驟 2：Echo 回音記憶訓練 ＆ 錄音自我檢測
-        </h3>
-        <div class="flex flex-wrap items-center gap-4">
-          <button onclick="startEchoLoop()" id="echoBtn" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-5 py-3 rounded-xl transition flex items-center gap-2">
-            🎧 啟動 Echo 回音導引 (聽標準音 ➔ 默唸回音 ➔ 自動錄音)
-          </button>
-          <button onclick="toggleManualRecord()" id="recordBtn" class="bg-rose-600 hover:bg-rose-500 text-white font-semibold px-5 py-3 rounded-xl transition flex items-center gap-2">
-            🎤 直接錄音練習
-          </button>
-          <button onclick="playComparison()" id="compareBtn" disabled class="bg-amber-600 disabled:bg-slate-700 disabled:text-slate-500 hover:bg-amber-500 text-white font-semibold px-5 py-3 rounded-xl transition flex items-center gap-2">
-            🔄 連續播放對比 (標準音 ➔ 我的發音)
-          </button>
-        </div>
-        <div id="echoStatus" class="mt-4 text-sm font-medium text-cyan-300 min-h-[1.5rem]"></div>
-      </div>
-
-      <!-- 步驟 3：即時檢視底層 JSON 資料結構 -->
-      <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-6 shadow-lg">
-        <div class="flex justify-between items-center mb-3">
-          <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-400">當前單字 JSON 結構資料</h3>
-          <button onclick="copyJson()" class="text-xs bg-slate-700 hover:bg-slate-600 text-slate-200 px-3 py-1.5 rounded-lg transition">複製 JSON</button>
-        </div>
-        <pre id="jsonViewer" class="bg-slate-950 text-emerald-400 p-4 rounded-xl text-xs font-mono overflow-x-auto max-h-64"></pre>
-      </div>
-    </section>
-  </div>
-
-  <script>
-    // 內建預設 JSON 資料庫
-    const PRESET_DB = {
-      fantastic: {
-        word: "fantastic",
-        pos: "adj.",
-        meaning: "極好的、異想天開的、不可思議的",
-        kk_full: "[fænˋtæstɪk]",
+            <div class="text-sm font-bold text-cyan-400" id="activePhonemeTitle">點擊上方任一音標積木查看發音
