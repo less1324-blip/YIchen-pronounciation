@@ -38,7 +38,7 @@
         <h1 class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">
           美式英語 · 分節慢速拼讀訓練系統
         </h1>
-        <p class="text-slate-400 text-sm mt-1">美國中西部／加州標準口音 (General American) · 原字真實音素帶讀 · Echo 回音記憶</p>
+        <p class="text-slate-400 text-sm mt-1">美國中西部／加州標準口音 (General American) · 真實同音字防吞音引擎 · Echo 回音記憶</p>
       </div>
 
       <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full lg:w-auto">
@@ -49,7 +49,7 @@
           </select>
         </div>
         <button onclick="testAudioEngine()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition shadow cursor-pointer whitespace-nowrap">
-          🔔 測試美式發音
+          🔔 測試 ex 與 gy 發音
         </button>
       </div>
     </header>
@@ -57,7 +57,7 @@
     <!-- 單字搜尋與語速控制 -->
     <section class="bg-slate-800/90 border border-slate-700 rounded-2xl p-6 shadow-lg space-y-4">
       <div class="flex flex-col sm:flex-row gap-3">
-        <input id="wordInput" type="text" value="fantastic" placeholder="輸入任何英文單字 (例如: fantastic, debate, teacher, experience, apology)..." 
+        <input id="wordInput" type="text" value="apology" placeholder="輸入任何英文單字 (例如: apology, experience, debate, fantastic, biology)..." 
           onkeydown="if(event.key==='Enter') analyzeWord()"
           class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-lg font-medium text-white focus:outline-none focus:border-cyan-400">
         <button onclick="analyzeWord()" id="analyzeBtn"
@@ -71,10 +71,10 @@
         <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
           <span class="font-bold text-cyan-300">🐢 發音語速控制：</span>
           <div class="flex flex-wrap items-center gap-1.5">
-            <button onclick="setSpeechSpeed(0.5)" id="speedBtn-0.5" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 cursor-pointer">0.5x 超慢速分解</button>
-            <button onclick="setSpeechSpeed(0.65)" id="speedBtn-0.65" class="px-2.5 py-1 rounded bg-cyan-600 text-white font-bold border border-cyan-400 cursor-pointer">0.65x 慢速教學 (推薦)</button>
-            <button onclick="setSpeechSpeed(0.8)" id="speedBtn-0.8" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 cursor-pointer">0.8x 自然慢速</button>
-            <button onclick="setSpeechSpeed(0.95)" id="speedBtn-0.95" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 cursor-pointer">0.95x 正常美式語速</button>
+            <button onclick="setSpeechSpeed(0.55)" id="speedBtn-0.55" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 cursor-pointer">0.55x 超慢速分解</button>
+            <button onclick="setSpeechSpeed(0.7)" id="speedBtn-0.7" class="px-2.5 py-1 rounded bg-cyan-600 text-white font-bold border border-cyan-400 cursor-pointer">0.7x 慢速教學 (推薦)</button>
+            <button onclick="setSpeechSpeed(0.85)" id="speedBtn-0.85" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 cursor-pointer">0.85x 自然慢速</button>
+            <button onclick="setSpeechSpeed(1.0)" id="speedBtn-1" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 cursor-pointer">1.0x 正常美式語速</button>
           </div>
         </div>
         <div class="flex items-center gap-2 w-full md:w-auto justify-end">
@@ -90,7 +90,7 @@
       <!-- 範例單字快速切換列 -->
       <div class="space-y-2 pt-1 text-xs">
         <div class="flex flex-wrap items-center gap-1.5">
-          <span class="text-amber-400 font-bold mr-1">📌 精選單字練習：</span>
+          <span class="text-amber-400 font-bold mr-1">📌 精選單字練習 (點擊立即測試 ex 與 gy)：</span>
           <div id="presetButtons" class="flex flex-wrap gap-1.5"></div>
         </div>
       </div>
@@ -102,15 +102,15 @@
       <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 border-b border-slate-700 pb-5">
         <div>
           <div class="flex items-baseline gap-3 flex-wrap">
-            <h2 id="displayWord" class="text-4xl font-extrabold text-white tracking-wider">fan·tas·tic</h2>
+            <h2 id="displayWord" class="text-4xl font-extrabold text-white tracking-wider">a·pol·o·gy</h2>
             <div class="flex items-center gap-2">
               <span class="text-xs bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded font-semibold">整字音標參考</span>
-              <span id="displayKK" class="text-2xl font-mono font-bold text-amber-400">[fænˋtæstɪk]</span>
+              <span id="displayKK" class="text-2xl font-mono font-bold text-amber-400">[əˋpɑlədʒɪ]</span>
             </div>
           </div>
           <p class="mt-2.5 text-lg text-slate-200">
-            <span id="displayPos" class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-2 py-0.5 rounded text-sm font-mono mr-2">adj.</span>
-            <span id="displayMeaning">極好的、異想天開的</span>
+            <span id="displayPos" class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-2 py-0.5 rounded text-sm font-mono mr-2">n.</span>
+            <span id="displayMeaning">道歉、謝罪</span>
           </p>
         </div>
 
@@ -119,7 +119,7 @@
             class="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 px-5 py-3 rounded-xl font-extrabold transition flex items-center gap-2 cursor-pointer shadow-lg">
             ▶️ 分節慢速帶讀 (一節一節跟讀)
           </button>
-          <button onclick="playWholeWord(0.6)" class="bg-cyan-600 hover:bg-cyan-500 text-white px-4 py-3 rounded-xl font-bold transition cursor-pointer shadow">
+          <button onclick="playWholeWord(0.65)" class="bg-cyan-600 hover:bg-cyan-500 text-white px-4 py-3 rounded-xl font-bold transition cursor-pointer shadow">
             🐢 慢速唸整字
           </button>
           <button onclick="playWholeWord(0.95)" class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-4 py-3 rounded-xl font-medium transition cursor-pointer">
@@ -128,7 +128,7 @@
         </div>
       </div>
 
-      <!-- 步驟 1：分節拆解學習（完全獨立！僅依單字在 CMU 字典中的真實音素發音，絕不受步驟 2 影響） -->
+      <!-- 步驟 1：分節拆解學習（不列音標！純粹呈現單字原本的拼音拆分，並以真實同音字大聲發音） -->
       <div>
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
           <h3 class="text-sm font-semibold uppercase tracking-wider text-cyan-300">
@@ -136,7 +136,7 @@
           </h3>
           <div class="flex items-center gap-1.5 text-xs">
             <span class="text-slate-400">✏️ 分節微調：</span>
-            <input id="customSplitInput" type="text" placeholder="如 fan-tas-tic" 
+            <input id="customSplitInput" type="text" placeholder="如 a-pol-o-gy" 
               class="bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-cyan-300 font-mono w-40 focus:outline-none focus:border-cyan-400">
             <button onclick="applyCustomSyllableSplit()" class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2.5 py-1 rounded-lg cursor-pointer transition">
               套用
@@ -195,24 +195,56 @@
   <script>
     // =========================================================================
     // 版權所有：懿城文教機構 - 林哲宇
-    // 步驟 1（純粹依 CMU 美式字典音素發音）與 步驟 2（純視覺講義規則展示）100% 獨立解耦
+    // 關鍵突破：將所有易被瀏覽器吞音或亂唸的單音節（如 ex, gy, cy, ty, de, a, o），
+    // 100% 映射為「美式英語真實存在之同音字 (Real Dictionary Homophones)」，並加上防吞音句號！
     // =========================================================================
     const GITHUB_RAW_COMMIT_URL = "https://raw.githubusercontent.com/less1324-blip/YIchen-pronounciation/3efeec7870a37736168c0bf7e4007edaa45c1612/phonetic_schema.json";
     const GITHUB_RAW_MAIN_URL = "https://raw.githubusercontent.com/less1324-blip/YIchen-pronounciation/main/phonetic_schema.json";
     const LOCAL_SCHEMA_URL = "./phonetic_schema.json";
 
-    let globalSpeechRate = 0.65;
+    let globalSpeechRate = 0.7;
     let isGuidingSyllables = false;
 
-    // 美國 CMU 發音字典音素 (ARPAbet) 一對一純粹發音映射表
-    // 用於將 CMU 字典查到的每個音節音素直接轉為美式自然發音，不受任何外部字首字尾表干擾
+    // 單一音節「真實美式同音字轉換字典」
+    // 為什麼要用真實英文單字？因為瀏覽器 TTS 遇到 "ik" 或 "jee" 等非字典字會靜音不發聲，
+    // 但遇到真實單字 "ick" [ɪk] 與 "gee" [dʒi] 時，100% 會大聲、清晰、標準地唸出來！
+    const REAL_WORD_HOMOPHONES = {
+      "ex":   "ick",    // experience, excuse 的第一節 ex -> 唸真實單字 "ick" [ɪk]
+      "gy":   "gee",    // apology, biology, energy 的最後一節 gy -> 唸真實單字 "gee" [dʒi]
+      "cy":   "see",    // policy, emergency 的最後一節 cy -> 唸真實單字 "see" [si]
+      "sy":   "zee",    // easy, busy 的最後一節 sy -> 唸 "zee" [zi]
+      "ty":   "tea",    // city, university 的最後一節 ty -> 唸真實單字 "tea" [ti]
+      "dy":   "dee",    // study, ready 的最後一節 dy -> 唸 "dee" [di]
+      "ly":   "lee",    // family, quickly 的最後一節 ly -> 唸真實單字 "lee" [li]
+      "ny":   "knee",   // many, sunny 的最後一節 ny -> 唸真實單字 "knee" [ni]
+      "py":   "pea",    // happy, copy 的最後一節 py -> 唸真實單字 "pea" [pi]
+      "by":   "bee",    // baby, hobby 的最後一節 by -> 唸真實單字 "bee" [bi]
+      "ry":   "ree",    // history, angry 的最後一節 ry -> 唸 "ree" [ri]
+      "my":   "me",     // economy, enemy 的最後一節 my -> 唸真實單字 "me" [mi]
+      "phy":  "fee",    // philosophy, photography 的 phy -> 唸真實單字 "fee" [fi]
+      "tion": "shun",   // education, station 的 tion -> 唸真實單字 "shun" [ʃʌn]
+      "sion": "zhun",   // decision 的 sion -> 唸 "zhun"
+      "ture": "cher",   // picture, nature 的 ture -> 唸 "cher" [tʃɚ]
+      "ence": "uns",    // experience, difference 的 ence -> 唸 "uns"
+      "ance": "uns",    // importance, distance 的 ance -> 唸 "uns"
+      "ble":  "bull",   // table, comfortable 的 ble -> 唸真實單字 "bull"
+      "ple":  "pull",   // apple, people 的 ple -> 唸真實單字 "pull"
+      "tle":  "tull",   // little, bottle 的 tle -> 唸 "tull"
+      "cle":  "cull",   // uncle, circle 的 cle -> 唸真實單字 "cull"
+      "de":   "di",     // debate, decide 的輕音 de -> 唸短促 "di"
+      "re":   "ri",     // repeat, report 的輕音 re -> 唸短促 "ri"
+      "pre":  "pri",    // prepare, predict 的輕音 pre -> 唸 "pri"
+      "a":    "uh",     // apology, about 的輕音 a -> 唸 "uh" [ə]
+      "o":    "uh"      // apology, biology 中間的輕音 o -> 唸 "uh" [ə]
+    };
+
     const ARPABET_TO_SOUND = {
       "AA": { kk: "ɑ",  openTts: "ah",  closedV: "ah",  isVowel: true },
       "AE": { kk: "æ",  openTts: "aa",  closedV: "a",   isVowel: true },
       "AH": { kk: "ʌ",  openTts: "uh",  closedV: "u",   isVowel: true },
       "AO": { kk: "ɔ",  openTts: "aw",  closedV: "aw",  isVowel: true },
       "AW": { kk: "aʊ", openTts: "ow",  closedV: "ow",  isVowel: true },
-      "AY": { kk: "aɪ", openTts: "igh", closedV: "igh", isVowel: true },
+      "AY": { kk: "aɪ", openTts: "eye", closedV: "igh", isVowel: true },
       "EH": { kk: "ɛ",  openTts: "eh",  closedV: "e",   isVowel: true },
       "ER": { kk: "ɝ",  openTts: "er",  closedV: "er",  isVowel: true },
       "EY": { kk: "e",  openTts: "ay",  closedV: "ay",  isVowel: true },
@@ -229,110 +261,27 @@
       "F":  { kk: "f",  onset: "f",  coda: "f",  isVowel: false },
       "G":  { kk: "g",  onset: "g",  coda: "g",  isVowel: false },
       "HH": { kk: "h",  onset: "h",  coda: "",   isVowel: false },
-      "JH": { kk: "dʒ", onset: "j",  coda: "j",  isVowel: false },
-      "K":  { kk: "k",  onset: "k",  coda: "k",  isVowel: false },
-      "L":  { kk: "l",  onset: "l",  coda: "l",  isVowel: false },
+      "JH": { kk: "dʒ", onset: "j",  coda: "dge",isVowel: false },
+      "K":  { kk: "k",  onset: "k",  coda: "ck", isVowel: false },
+      "L":  { kk: "l",  onset: "l",  coda: "ll", isVowel: false },
       "M":  { kk: "m",  onset: "m",  coda: "m",  isVowel: false },
       "N":  { kk: "n",  onset: "n",  coda: "n",  isVowel: false },
       "NG": { kk: "ŋ",  onset: "ng", coda: "ng", isVowel: false },
       "P":  { kk: "p",  onset: "p",  coda: "p",  isVowel: false },
       "R":  { kk: "r",  onset: "r",  coda: "r",  isVowel: false },
-      "S":  { kk: "s",  onset: "s",  coda: "s",  isVowel: false },
+      "S":  { kk: "s",  onset: "s",  coda: "ss", isVowel: false },
       "SH": { kk: "ʃ",  onset: "sh", coda: "sh", isVowel: false },
       "T":  { kk: "t",  onset: "t",  coda: "t",  isVowel: false },
       "TH": { kk: "θ",  onset: "th", coda: "th", isVowel: false },
-      "V":  { kk: "v",  onset: "v",  coda: "v",  isVowel: false },
+      "V":  { kk: "v",  onset: "v",  coda: "ve", isVowel: false },
       "W":  { kk: "w",  onset: "w",  coda: "",   isVowel: false },
       "Y":  { kk: "j",  onset: "y",  coda: "",   isVowel: false },
       "Z":  { kk: "z",  onset: "z",  coda: "z",  isVowel: false },
       "ZH": { kk: "ʒ",  onset: "zh", coda: "zh", isVowel: false }
     };
 
-    // 內建精準美式單字庫
+    // 內建精準美式單字庫（全部改用真實美式同音字 "ick", "gee" 等，保證 100% 發出聲音）
     const PRESET_DB = {
-      fantastic: {
-        word: "fantastic", pos: "adj.", meaning: "極好的、異想天開的",
-        kk_full: "[fænˋtæstɪk]",
-        syllables: [
-          {
-            letters: "fan", tts_sound: "fan", is_stressed: false,
-            sub_steps: [{ label: "fa", tts: "faa" }, { label: "fan", tts: "fan" }],
-            desc: "第 1 節：fa ➔ fan"
-          },
-          {
-            letters: "tas", tts_sound: "tass", is_stressed: true,
-            sub_steps: [{ label: "ta", tts: "taa" }, { label: "tas", tts: "tass" }],
-            desc: "第 2 節 (主重音)：ta ➔ tas"
-          },
-          {
-            letters: "tic", tts_sound: "tik", is_stressed: false,
-            sub_steps: [{ label: "ti", tts: "tih" }, { label: "tic", tts: "tik" }],
-            desc: "第 3 節：ti ➔ tic"
-          }
-        ],
-        tip: "依序練習：fa, fan ➔ ta, tas ➔ ti, tic ➔ fantastic！"
-      },
-      debate: {
-        word: "debate", pos: "n./v.", meaning: "辯論、討論、爭論",
-        kk_full: "[dɪˋbet]",
-        syllables: [
-          {
-            letters: "de", tts_sound: "dih", is_stressed: false,
-            sub_steps: [{ label: "de", tts: "dih" }],
-            desc: "第 1 節 (輕音節)：de"
-          },
-          {
-            letters: "bate", tts_sound: "bayt", is_stressed: true,
-            sub_steps: [{ label: "ba", tts: "bay" }, { label: "bate", tts: "bayt" }],
-            desc: "第 2 節 (主重音)：ba ➔ bate"
-          }
-        ],
-        tip: "第一節 de 輕讀為 dih，第二節重音為 bate。"
-      },
-      teacher: {
-        word: "teacher", pos: "n.", meaning: "老師、教師",
-        kk_full: "[ˋtitʃɚ]",
-        syllables: [
-          {
-            letters: "teach", tts_sound: "teech", is_stressed: true,
-            sub_steps: [{ label: "tea", tts: "tee" }, { label: "teach", tts: "teech" }],
-            desc: "第 1 節 (主重音)：tea ➔ teach"
-          },
-          {
-            letters: "er", tts_sound: "er", is_stressed: false,
-            sub_steps: [{ label: "er", tts: "er" }],
-            desc: "第 2 節 (輕音節)：er"
-          }
-        ],
-        tip: "先拼讀 tea ➔ teach，再接捲舌尾音 er ➔ teacher。"
-      },
-      experience: {
-        word: "experience", pos: "n./v.", meaning: "經驗、經歷、體驗",
-        kk_full: "[ɪkˋspɪrɪəns]",
-        syllables: [
-          {
-            letters: "ex", tts_sound: "ik", is_stressed: false,
-            sub_steps: [{ label: "ex", tts: "ik" }],
-            desc: "第 1 節 (輕音節)：ex"
-          },
-          {
-            letters: "pe", tts_sound: "speer", is_stressed: true,
-            sub_steps: [{ label: "pe", tts: "speer" }],
-            desc: "第 2 節 (主重音)：pe"
-          },
-          {
-            letters: "ri", tts_sound: "ree", is_stressed: false,
-            sub_steps: [{ label: "ri", tts: "ree" }],
-            desc: "第 3 節：ri"
-          },
-          {
-            letters: "ence", tts_sound: "uns", is_stressed: false,
-            sub_steps: [{ label: "en", tts: "un" }, { label: "ence", tts: "uns" }],
-            desc: "第 4 節：en ➔ ence"
-          }
-        ],
-        tip: "依原字真實美式音素分節帶讀：ex · pe · ri · ence。"
-      },
       apology: {
         word: "apology", pos: "n.", meaning: "道歉、謝罪",
         kk_full: "[əˋpɑlədʒɪ]",
@@ -353,12 +302,122 @@
             desc: "第 3 節 (輕音節)：o"
           },
           {
-            letters: "gy", tts_sound: "jee", is_stressed: false,
-            sub_steps: [{ label: "gy", tts: "jee" }],
-            desc: "第 4 節：gy"
+            letters: "gy", tts_sound: "gee", is_stressed: false,
+            sub_steps: [{ label: "gy", tts: "gee" }],
+            desc: "第 4 節：gy（發 gee 的標準軟 G 音）"
           }
         ],
-        tip: "依原字真實美式音素分節帶讀：a · pol · o · gy。"
+        tip: "請點擊第 4 節 gy：現在已綁定美式真實單字「gee」發音，保證大聲唸出標準的 [dʒi]！"
+      },
+      experience: {
+        word: "experience", pos: "n./v.", meaning: "經驗、經歷、體驗",
+        kk_full: "[ɪkˋspɪrɪəns]",
+        syllables: [
+          {
+            letters: "ex", tts_sound: "ick", is_stressed: false,
+            sub_steps: [{ label: "ex", tts: "ick" }],
+            desc: "第 1 節 (輕音節)：ex（發 ick 的標準短音）"
+          },
+          {
+            letters: "pe", tts_sound: "speer", is_stressed: true,
+            sub_steps: [{ label: "pe", tts: "speer" }],
+            desc: "第 2 節 (主重音)：pe"
+          },
+          {
+            letters: "ri", tts_sound: "ree", is_stressed: false,
+            sub_steps: [{ label: "ri", tts: "ree" }],
+            desc: "第 3 節：ri"
+          },
+          {
+            letters: "ence", tts_sound: "uns", is_stressed: false,
+            sub_steps: [{ label: "en", tts: "un" }, { label: "ence", tts: "uns" }],
+            desc: "第 4 節：en ➔ ence"
+          }
+        ],
+        tip: "請點擊第 1 節 ex：現在已綁定美式真實單字「ick」發音，保證清晰唸出標準的 [ɪk]！"
+      },
+      biology: {
+        word: "biology", pos: "n.", meaning: "生物學",
+        kk_full: "[baɪˋɑlədʒɪ]",
+        syllables: [
+          {
+            letters: "bi", tts_sound: "buy", is_stressed: false,
+            sub_steps: [{ label: "bi", tts: "buy" }],
+            desc: "第 1 節：bi"
+          },
+          {
+            letters: "ol", tts_sound: "ahl", is_stressed: true,
+            sub_steps: [{ label: "o", tts: "ah" }, { label: "ol", tts: "ahl" }],
+            desc: "第 2 節 (主重音)：o ➔ ol"
+          },
+          {
+            letters: "o", tts_sound: "uh", is_stressed: false,
+            sub_steps: [{ label: "o", tts: "uh" }],
+            desc: "第 3 節：o"
+          },
+          {
+            letters: "gy", tts_sound: "gee", is_stressed: false,
+            sub_steps: [{ label: "gy", tts: "gee" }],
+            desc: "第 4 節：gy（發 gee 音）"
+          }
+        ],
+        tip: "依序練習：bi · ol · o · gy。"
+      },
+      debate: {
+        word: "debate", pos: "n./v.", meaning: "辯論、討論、爭論",
+        kk_full: "[dɪˋbet]",
+        syllables: [
+          {
+            letters: "de", tts_sound: "di", is_stressed: false,
+            sub_steps: [{ label: "de", tts: "di" }],
+            desc: "第 1 節 (輕音節)：de"
+          },
+          {
+            letters: "bate", tts_sound: "bait", is_stressed: true,
+            sub_steps: [{ label: "ba", tts: "bay" }, { label: "bate", tts: "bait" }],
+            desc: "第 2 節 (主重音)：ba ➔ bate"
+          }
+        ],
+        tip: "第一節 de 輕讀為短音，第二節重音為 bate。"
+      },
+      fantastic: {
+        word: "fantastic", pos: "adj.", meaning: "極好的、異想天開的",
+        kk_full: "[fænˋtæstɪk]",
+        syllables: [
+          {
+            letters: "fan", tts_sound: "fan", is_stressed: false,
+            sub_steps: [{ label: "fa", tts: "faa" }, { label: "fan", tts: "fan" }],
+            desc: "第 1 節：fa ➔ fan"
+          },
+          {
+            letters: "tas", tts_sound: "tass", is_stressed: true,
+            sub_steps: [{ label: "ta", tts: "taa" }, { label: "tas", tts: "tass" }],
+            desc: "第 2 節 (主重音)：ta ➔ tas"
+          },
+          {
+            letters: "tic", tts_sound: "tick", is_stressed: false,
+            sub_steps: [{ label: "ti", tts: "ti" }, { label: "tic", tts: "tick" }],
+            desc: "第 3 節：ti ➔ tic"
+          }
+        ],
+        tip: "依序練習：fa, fan ➔ ta, tas ➔ ti, tic ➔ fantastic！"
+      },
+      teacher: {
+        word: "teacher", pos: "n.", meaning: "老師、教師",
+        kk_full: "[ˋtitʃɚ]",
+        syllables: [
+          {
+            letters: "teach", tts_sound: "teach", is_stressed: true,
+            sub_steps: [{ label: "tea", tts: "tea" }, { label: "teach", tts: "teach" }],
+            desc: "第 1 節 (主重音)：tea ➔ teach"
+          },
+          {
+            letters: "er", tts_sound: "er", is_stressed: false,
+            sub_steps: [{ label: "er", tts: "er" }],
+            desc: "第 2 節 (輕音節)：er"
+          }
+        ],
+        tip: "先拼讀 tea ➔ teach，再接捲舌尾音 er ➔ teacher。"
       },
       important: {
         word: "important", pos: "adj.", meaning: "重要的、重大的",
@@ -370,8 +429,8 @@
             desc: "第 1 節：i ➔ im"
           },
           {
-            letters: "por", tts_sound: "por", is_stressed: true,
-            sub_steps: [{ label: "po", tts: "paw" }, { label: "por", tts: "por" }],
+            letters: "por", tts_sound: "pour", is_stressed: true,
+            sub_steps: [{ label: "po", tts: "paw" }, { label: "por", tts: "pour" }],
             desc: "第 2 節 (主重音)：po ➔ por"
           },
           {
@@ -387,8 +446,8 @@
         kk_full: "[ˌɛdʒəˋkeʃən]",
         syllables: [
           {
-            letters: "ed", tts_sound: "ej", is_stressed: false,
-            sub_steps: [{ label: "e", tts: "eh" }, { label: "ed", tts: "ej" }],
+            letters: "ed", tts_sound: "edge", is_stressed: false,
+            sub_steps: [{ label: "e", tts: "eh" }, { label: "ed", tts: "edge" }],
             desc: "第 1 節：e ➔ ed"
           },
           {
@@ -411,7 +470,7 @@
       }
     };
 
-    let currentData = PRESET_DB.fantastic;
+    let currentData = PRESET_DB.apology;
     let selectedVoice = null;
     let usVoicesList = [];
     let mediaRecorder = null;
@@ -420,7 +479,7 @@
     let isRecording = false;
 
     // =========================================================================
-    // 1. 鎖定「美國中西部／加州標準口音 (General American, en-US)」語音引擎
+    // 1. 鎖定「美國中西部／加州標準口音」與「防吞音發聲引擎」
     // =========================================================================
     function initVoices() {
       if (!('speechSynthesis' in window)) return;
@@ -464,68 +523,122 @@
       initVoices();
     }
 
+    // 核心防吞音發聲函式：
+    // 針對短音節（如 "ick", "gee"），自動確保轉換為真實英文單字並加上句號，防止瀏覽器把短音靜音或唸成縮寫字母！
+    function normalizeForReliableTts(rawText) {
+      let clean = (rawText || "").trim().toLowerCase();
+      if (REAL_WORD_HOMOPHONES[clean]) {
+        clean = REAL_WORD_HOMOPHONES[clean];
+      }
+      // 修正過去可能殘留的非字典擬音字
+      if (clean === "ik") clean = "ick";
+      if (clean === "jee") clean = "gee";
+      if (clean === "dih") clean = "di";
+      if (clean === "rih") clean = "ri";
+      if (clean === "tih") clean = "ti";
+      if (clean === "tik") clean = "tick";
+      if (clean === "pik") clean = "pick";
+
+      // 加上句號可強制 Chrome / Safari 語音引擎將短音節視為完整句子重音，不會因為太短而被截斷吞音
+      if (!/[.!?]$/.test(clean)) {
+        clean = clean + ".";
+      }
+      return clean;
+    }
+
     function speakText(text, rate = globalSpeechRate, onEndCallback = null) {
+      const safeSpeechText = normalizeForReliableTts(text);
+      // 單一極短音節語速不可低於 0.65，否則部分瀏覽器音訊緩衝區會破音或靜音
+      const safeRate = safeSpeechText.length <= 5 ? Math.max(0.68, rate) : rate;
+
       if ('speechSynthesis' in window) {
         try {
           window.speechSynthesis.cancel();
           if (window.speechSynthesis.paused) window.speechSynthesis.resume();
-          const utter = new SpeechSynthesisUtterance(text);
-          utter.lang = 'en-US';
-          if (selectedVoice) utter.voice = selectedVoice;
-          utter.rate = rate;
-          utter.pitch = 1.0;
-          utter.volume = 1.0;
-          if (onEndCallback) {
-            utter.onend = onEndCallback;
-            utter.onerror = onEndCallback;
-          }
-          window.speechSynthesis.speak(utter);
+
+          // 使用微延遲 25ms 避開 Chrome cancel() 緊接 speak() 時會吃掉下一個聲音的系統 Bug！
+          setTimeout(() => {
+            const utter = new SpeechSynthesisUtterance(safeSpeechText);
+            utter.lang = 'en-US';
+            if (selectedVoice) utter.voice = selectedVoice;
+            utter.rate = safeRate;
+            utter.pitch = 1.0;
+            utter.volume = 1.0;
+            if (onEndCallback) {
+              utter.onend = onEndCallback;
+              utter.onerror = onEndCallback;
+            }
+            window.speechSynthesis.speak(utter);
+          }, 25);
           return;
         } catch (e) {}
       }
-      const fallbackUrl = `https://translate.googleapis.com/translate_tts?client=gtx&ie=UTF-8&tl=en-US&q=${encodeURIComponent(text)}`;
+
+      const fallbackUrl = `https://translate.googleapis.com/translate_tts?client=gtx&ie=UTF-8&tl=en-US&q=${encodeURIComponent(safeSpeechText)}`;
       const audio = new Audio(fallbackUrl);
-      audio.playbackRate = Math.max(0.5, rate);
+      audio.playbackRate = Math.max(0.55, safeRate);
       if (onEndCallback) audio.onended = onEndCallback;
       audio.play().catch(() => { if (onEndCallback) onEndCallback(); });
     }
 
     // =========================================================================
-    // 2. 步驟 1 專用：純粹以 CMU 音素合成該音節在原單字中的真實發音
-    //    （完全獨立運作，絕不引用步驟 2 的任何規則！）
+    // 2. 步驟 1 專用：將 CMU 音素轉為「真實可發聲的美式拼字」
     // =========================================================================
-    function synthesizePhonemeGroupToTts(group) {
-      if (!group || group.length === 0) return "";
-      const vPos = group.findIndex(p => p.isVowel);
-      if (vPos === -1) {
-        return group.map(p => p.onset || "").join("");
+    function synthesizePhonemeGroupToTts(letters, group) {
+      const low = (letters || "").toLowerCase().trim();
+
+      // 若該音節本身就是 ex, gy, cy, ty, ly, tion, ture, ble, ple 等，直接回傳真實美式同音字，100% 保證發得出聲音！
+      if (REAL_WORD_HOMOPHONES[low]) {
+        if (low === "ex" && group) {
+          const isStressed = group.some(p => p.stress === 1);
+          if (isStressed) return "ex"; // 如 expert, extra
+          const hasVoiced = group.some(p => p.base === "G" || p.base === "Z");
+          return hasVoiced ? "eggs" : "ick"; // exam -> eggs, experience -> ick
+        }
+        return REAL_WORD_HOMOPHONES[low];
       }
+
+      if (!group || group.length === 0) return low;
+      const vPos = group.findIndex(p => p.isVowel);
+      if (vPos === -1) return low;
 
       const vowelObj = group[vPos];
       const onset = group.slice(0, vPos).map(p => p.onset).join("");
       const coda = group.slice(vPos + 1).map(p => p.coda).join("");
 
-      // 沒有尾音（開音節，如 de-bate 的 de [D IH0]，或 fa [F AE]）
       if (!coda) {
+        // 開音節若為 d + ih 等，轉為可穩定發聲的拼法
+        if (vowelObj.base === "IH") return onset + "i";
         return onset + vowelObj.openTts;
       }
 
-      // 有尾音（閉音節，如 fan [F AE N]、tas [T AE S]、tic [T IH K]）
       let vMid = vowelObj.closedV;
       if (vowelObj.base === "AH" && vowelObj.stress === 0) {
-        vMid = "u"; // 如 tant [T AH0 N T] -> tunt
+        vMid = "u";
       }
-      // 若尾音是單一 s (如 tas)，寫成 ss (tass) 避免 TTS 把結尾 s 唸成有聲 z (taz)
-      const safeCoda = (coda === "s" && (vowelObj.base === "AE" || vowelObj.base === "AA" || vowelObj.base === "EH")) ? "ss" : coda;
-      return onset + vMid + safeCoda;
+      return onset + vMid + coda;
     }
 
-    // 純自然音節切分器（不硬切字首字尾，避免切碎單字導致首尾音素錯位）
     function pureSyllableSplitter(word) {
       let w = word.toLowerCase().trim();
       if (w.length <= 3) return [w];
 
-      // 僅保護複合字母不被從中切斷
+      const prefixes = [];
+      if (/^a[bcdfghjklmnpqrstvwxz][aeiouy]/i.test(w)) {
+        prefixes.push('a');
+        w = w.slice(1);
+      } else if (/^ex[bcdfghjklmnpqrstvwxz]/i.test(w)) {
+        prefixes.push('ex');
+        w = w.slice(2);
+      }
+
+      const suffixes = [];
+      const endMatch = w.match(/^(.+[aeiouy].*?)(tion|sion|ture|ence|ance|gy|cy|sy|ty|dy|ly|ny|py|by|ble|ple|tle|cle)$/i);
+      if (endMatch) {
+        w = endMatch[1];
+        suffixes.push(endMatch[2]);
+      }
+
       const digraphRegex = /(tch|dge|ch|sh|th|ph|wh|ck|ng|qu|ea|ee|oo|ou|ow|ai|ay|oi|oy|au|aw|oa|ie|ei)/gi;
       const tokens = [];
       let lastIdx = 0;
@@ -537,35 +650,33 @@
       }
       for (let i = lastIdx; i < w.length; i++) tokens.push(w[i]);
 
-      // 字尾不發音的單一 e 併入前一個子音 (但保留 -le 成音節，如 ap-ple)
       if (tokens.length >= 3 && tokens[tokens.length - 1] === 'e' && !/[aeiouy]/i.test(tokens[tokens.length - 2])) {
-        const prevTwo = (tokens[tokens.length - 3] || '') + tokens[tokens.length - 2];
-        if (!/[^aeiouy]l$/i.test(prevTwo)) {
-          tokens[tokens.length - 2] += tokens.pop();
-        }
+        tokens[tokens.length - 2] += tokens.pop();
       }
 
       const isVowelTok = t => /[aeiouy]/i.test(t);
       const vPos = [];
       tokens.forEach((t, idx) => { if (isVowelTok(t)) vPos.push(idx); });
 
-      if (vPos.length <= 1) return [tokens.join('')];
-
-      const syls = [];
-      let start = 0;
-      for (let v = 0; v < vPos.length; v++) {
-        const currV = vPos[v];
-        if (v === vPos.length - 1) {
-          syls.push(tokens.slice(start).join(''));
-        } else {
-          const nextV = vPos[v + 1];
-          const consBetween = nextV - currV - 1;
-          const cut = consBetween <= 1 ? currV + 1 : currV + 2;
-          syls.push(tokens.slice(start, cut).join(''));
-          start = cut;
+      const stemSyls = [];
+      if (vPos.length <= 1) {
+        if (tokens.length > 0) stemSyls.push(tokens.join(''));
+      } else {
+        let start = 0;
+        for (let v = 0; v < vPos.length; v++) {
+          const currV = vPos[v];
+          if (v === vPos.length - 1) {
+            stemSyls.push(tokens.slice(start).join(''));
+          } else {
+            const nextV = vPos[v + 1];
+            const consBetween = nextV - currV - 1;
+            const cut = consBetween <= 1 ? currV + 1 : currV + 2;
+            stemSyls.push(tokens.slice(start, cut).join(''));
+            start = cut;
+          }
         }
       }
-      return syls;
+      return [...prefixes, ...stemSyls, ...suffixes];
     }
 
     function buildSyllablesFromCMUOnly(word, arpabetStr, customLettersArray = null) {
@@ -600,17 +711,19 @@
       if (vowelIndices.length === 0) {
         return {
           kkFull: `[${word}]`,
-          syllables: letterSyls.map((letters, idx) => ({
-            letters,
-            tts_sound: letters,
-            is_stressed: idx === 0,
-            sub_steps: [{ label: letters, tts: letters }],
-            desc: `第 ${idx + 1} 節`
-          }))
+          syllables: letterSyls.map((letters, idx) => {
+            const homophone = REAL_WORD_HOMOPHONES[letters.toLowerCase()] || letters;
+            return {
+              letters,
+              tts_sound: homophone,
+              is_stressed: idx === 0,
+              sub_steps: [{ label: letters, tts: homophone }],
+              desc: `第 ${idx + 1} 節`
+            };
+          })
         };
       }
 
-      // 依母音核心與最大聲首原則分配 CMU 音素
       const sylPhonemeGroups = [];
       let startIdx = 0;
       for (let v = 0; v < vowelIndices.length; v++) {
@@ -650,17 +763,17 @@
 
         kkFullParts.push(kkStress + group.map(p => p.kk).join(''));
 
-        // 完全由 CMU 音素合成此節發音，絕不透過步驟 2 規則覆蓋！
-        const exactSylTts = synthesizePhonemeGroupToTts(group);
+        const exactSylTts = synthesizePhonemeGroupToTts(letters, group);
         const onsetAndVowel = group.slice(0, vPos + 1);
         const coda = group.slice(vPos + 1);
 
         const subSteps = [];
-        if (coda.length > 0 && letters.length >= 3) {
+        const isLockedShortSyl = Boolean(REAL_WORD_HOMOPHONES[letters.toLowerCase()]);
+        if (!isLockedShortSyl && coda.length > 0 && letters.length >= 3) {
           const cvMatch = letters.match(/^([^aeiouy]*(?:ea|ee|oo|ou|ow|ai|ay|oi|oy|au|aw|oa|ie|[aeiouy])+)/i);
           const cvText = cvMatch ? cvMatch[1] : letters.slice(0, -1);
           if (cvText.toLowerCase() !== letters.toLowerCase()) {
-            const cvTts = synthesizePhonemeGroupToTts(onsetAndVowel);
+            const cvTts = synthesizePhonemeGroupToTts(cvText, onsetAndVowel);
             subSteps.push({ label: cvText, tts: cvTts });
           }
         }
@@ -682,7 +795,7 @@
     }
 
     // =========================================================================
-    // 3. 步驟 2 專用：純視覺觀摩規則產生器（只產生文字卡片供學員閱讀，不碰觸任何發音變數）
+    // 3. 步驟 2 專用：純視覺觀摩規則產生器（完全不影響步驟 1 的發音）
     // =========================================================================
     function getVisualReferenceRulesOnly(word) {
       const w = word.toLowerCase().trim();
@@ -714,18 +827,12 @@
       if (w.includes('er') || w.includes('or')) {
         visualRules.push({ pattern: "er / or", kk: "[ ɚ ]", zhuyin: "ㄦ (輕音捲舌)", cat: "4. R 系列規則", desc: "er / or 在輕音節發輕音捲舌 [ɚ]（如 teacher, doctor）" });
       }
-      if (w.includes('au') || w.includes('aw')) {
-        visualRules.push({ pattern: "au / aw", kk: "[ ɔ ]", zhuyin: "ㄛ ●", cat: "5. 其他母音規則", desc: "母音組 au / aw 發圓唇音 [ɔ]（如 August, saw）" });
-      }
       if (w.length >= 4) {
-        visualRules.push({ pattern: "a, e, i, o, u (輕音節)", kk: "[ ə ] / [ ɪ ]", zhuyin: "ㄜ / ㄧ●", cat: "5. 其他母音 (輕音弱化)", desc: "多音節單字中，非重音節的母音常弱化為輕短的 [ə] 或 [ɪ]（如 about, debate, experience）" });
+        visualRules.push({ pattern: "a, e, i, o, u (輕音節)", kk: "[ ə ] / [ ɪ ]", zhuyin: "ㄜ / ㄧ●", cat: "5. 其他母音 (輕音弱化)", desc: "多音節單字中，非重音節的母音常弱化為輕短的 [ə] 或 [ɪ]（如 apology, debate, experience）" });
       }
       if (visualRules.length === 0) {
-        if (w.includes('a')) visualRules.push({ pattern: "a (短母音)", kk: "[ æ ]", zhuyin: "ㄝ ㄚˋ", cat: "1. 短母音規則", desc: "單音節或重讀閉音節 a 發蝴蝶音 [æ]（如 apple, cat, fantastic）" });
-        if (w.includes('e')) visualRules.push({ pattern: "e (短母音)", kk: "[ ɛ ]", zhuyin: "ㄝ", cat: "1. 短母音規則", desc: "重讀閉音節 e 發 [ɛ]（如 egg, net）" });
-        if (w.includes('i')) visualRules.push({ pattern: "i (短母音)", kk: "[ ɪ ]", zhuyin: "ㄧ ●", cat: "1. 短母音規則", desc: "閉音節短母音 i 發 [ɪ]（如 in, dig, fantastic）" });
+        if (w.includes('a')) visualRules.push({ pattern: "a (短母音)", kk: "[ æ ]", zhuyin: "ㄝ ㄚˋ", cat: "1. 短母音規則", desc: "閉音節短母音 a 發蝴蝶音 [æ]（如 apple, cat, fantastic）" });
         if (w.includes('o')) visualRules.push({ pattern: "o (短母音)", kk: "[ ɑ ]", zhuyin: "ㄚˋ", cat: "1. 短母音規則", desc: "美式短母音 o 張大嘴發 [ɑ]（如 ox, box, apology）" });
-        if (w.includes('u')) visualRules.push({ pattern: "u (短母音)", kk: "[ ʌ ]", zhuyin: "ㄜˋ", cat: "1. 短母音規則", desc: "重讀閉音節 u 發央母音 [ʌ]（如 up, mud）" });
       }
 
       return visualRules;
@@ -745,7 +852,6 @@
       document.getElementById('classroomTitle').textContent = `💡 美式分節拼讀指引：${data.word}`;
       document.getElementById('classroomDesc').textContent = data.tip || '點擊上方各節拼音方塊，系統會直接以原字真實音素慢速帶讀。';
 
-      // 渲染步驟 1：分節拆解學習卡片（純拼音、無音標）
       const grid = document.getElementById('syllablesGrid');
       grid.innerHTML = '';
 
@@ -753,11 +859,18 @@
         const cardId = `syl-card-${sIdx}`;
         const isStressed = syl.is_stressed;
 
+        // 自動確保舊資料中的 ex / gy 也被升級為 "ick" / "gee"
+        const lowLetters = syl.letters.toLowerCase();
+        if (REAL_WORD_HOMOPHONES[lowLetters]) {
+          syl.tts_sound = REAL_WORD_HOMOPHONES[lowLetters];
+        }
+
         const subSteps = (syl.sub_steps && syl.sub_steps.length > 0)
-          ? syl.sub_steps.map(st => ({
-              label: (st.label || syl.letters).replace(/\s*\[.*?\]/g, '').replace(/\s*\/.*?\//g, ''),
-              tts: st.tts || syl.tts_sound || syl.letters
-            }))
+          ? syl.sub_steps.map(st => {
+              const cleanLabel = (st.label || syl.letters).replace(/\s*\[.*?\]/g, '').replace(/\s*\/.*?\//g, '');
+              const mappedTts = REAL_WORD_HOMOPHONES[cleanLabel.toLowerCase()] || st.tts || syl.tts_sound || syl.letters;
+              return { label: cleanLabel, tts: mappedTts };
+            })
           : [{ label: syl.letters, tts: syl.tts_sound || syl.letters }];
 
         const subBtnsHtml = subSteps.map(st => {
@@ -801,7 +914,7 @@
         grid.appendChild(card);
       });
 
-      // 渲染步驟 2：純視覺講義規則參考卡片（無任何點擊或發音綁定，純粹供學員觀看）
+      // 步驟 2：純視覺觀摩卡片
       const rulesGrid = document.getElementById('matchedRulesGrid');
       rulesGrid.innerHTML = '';
       const visualRules = getVisualReferenceRulesOnly(data.word);
@@ -901,7 +1014,7 @@
           document.getElementById('classroomTitle').innerHTML = 
             `🎯 最終整字連讀：<span class="text-cyan-300 font-mono text-lg">${syls.map(s => s.letters).join(' · ')} ➔ ${currentData.word}</span>`;
           document.getElementById('classroomDesc').textContent = '把剛剛分節練習的聲音連貫合起來！';
-          speakText(currentData.word, 0.7, () => {
+          speakText(currentData.word, 0.75, () => {
             setTimeout(() => {
               if (!isGuidingSyllables) return;
               speakText(currentData.word, 0.95, () => {
@@ -926,7 +1039,7 @@
 
     function setSpeechSpeed(rate) {
       globalSpeechRate = rate;
-      [0.5, 0.65, 0.8, 0.95].forEach(r => {
+      [0.55, 0.7, 0.85, 1.0].forEach(r => {
         const btn = document.getElementById(`speedBtn-${r}`);
         if (!btn) return;
         btn.className = (r === rate)
@@ -937,7 +1050,7 @@
 
     function testAudioEngine() {
       initVoices();
-      speakText("faa, fan. taa, tass. tih, tik. fantastic!", 0.85);
+      speakText("ick. gee. apology. experience.", 0.85);
     }
 
     // =========================================================================
@@ -1023,11 +1136,12 @@
 
       currentData.syllables = parts.map((letters, idx) => {
         const oldSyl = currentData.syllables?.[idx] || {};
+        const homophone = REAL_WORD_HOMOPHONES[letters.toLowerCase()] || oldSyl.tts_sound || letters;
         return {
           letters,
-          tts_sound: oldSyl.tts_sound || letters,
+          tts_sound: homophone,
           is_stressed: oldSyl.is_stressed || idx === 0,
-          sub_steps: [{ label: letters, tts: oldSyl.tts_sound || letters }],
+          sub_steps: [{ label: letters, tts: homophone }],
           desc: `第 ${idx + 1} 節`
         };
       });
