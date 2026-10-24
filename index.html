@@ -171,10 +171,6 @@
   </footer>
 
   <script>
-    // =========================================================================
-    // 版權所有：懿城文教機構 - 林哲宇
-    // 專項精準音素映射（顯示正確拼寫，底層以同音或音素發聲）
-    // =========================================================================
     const GITHUB_RAW_COMMIT_URL = "https://raw.githubusercontent.com/less1324-blip/YIchen-pronounciation/3efeec7870a37736168c0bf7e4007edaa45c1612/phonetic_schema.json";
     const GITHUB_RAW_MAIN_URL = "https://raw.githubusercontent.com/less1324-blip/YIchen-pronounciation/main/phonetic_schema.json";
     const LOCAL_SCHEMA_URL = "./phonetic_schema.json";
@@ -182,29 +178,29 @@
     let globalSpeechRate = 0.7;
     let isGuidingSyllables = false;
 
-    // 音節真實發音映射表（畫面顯示為正確英文拼寫，底層以精準同音字發聲）
+    // 音節真實發音映射表
     const REAL_WORD_HOMOPHONES = {
-      "ex":   "ick",    // 發 [ɪk]
-      "pe":   "speer",  // 發 [spɪr]
-      "ri":   "ree",    // 發 [ri]
-      "ence": "uns",    // 發 [əns]
-      "si":   "ssuh",   // 發 [sə]
-      "ble":  "bul",    // 發 [bl]
-      "pos":  "poss",   // 發 [pɑs]
-      "im":   "'im",    // 發 [ɪm]
-      "syn":  "sin",    // 發 [sɪn]
-      "the":  "thuh",   // 發 [θə]
-      "sis":  "siss",   // 發 [sɪs]
-      "edu":  "edgeuh", // 發 [ɛdʒə]
-      "ca":   "kay",    // 發 [ke]
-      "tion": "shun",   // 發 [ʃən]
-      "phe":  "fuh",    // 發 [fə]
-      "no":   "nah",    // 發 [nɑ]
-      "ma":   "muh",    // 發 [mə]
-      "non":  "non",    // 發 [nɑn]
-      "be":   "bih",    // 發 [bɪ]
-      "gual": "gwull",  // 發 [gwəl]
-      "gy":   "gee",    // 發 [dʒi]
+      "ex":   "ick",
+      "pe":   "speer",
+      "ri":   "ree",
+      "ence": "uns",
+      "si":   "ssuh",
+      "ble":  "bul",
+      "pos":  "poss",
+      "im":   "'im",
+      "syn":  "sin",
+      "the":  "thuh",
+      "sis":  "siss",
+      "edu":  "edgeuh",
+      "ca":   "kay",
+      "tion": "shun",
+      "phe":  "fuh",
+      "no":   "nah",
+      "ma":   "muh",
+      "non":  "non",
+      "be":   "bih",
+      "gual": "gwull",
+      "gy":   "gee",
       "cy":   "see",
       "sy":   "zee",
       "ty":   "tea",
@@ -298,7 +294,6 @@
       "ZH": { kk: "ʒ",  onset: "zh", coda: "zh", isVowel: false }
     };
 
-    // 內建單字庫（education 正確拼寫為 edu·ca·tion，發音維持 shun [ʃən]）
     const PRESET_DB = {
       education: {
         word: "education", pos: "n.", meaning: "教育、培養",
@@ -314,10 +309,10 @@
         word: "experience", pos: "n./v.", meaning: "經驗、經歷、體驗",
         kk_full: "[ɪkˋspɪrɪəns]",
         syllables: [
-          { letters: "ex", tts_sound: "ick", sub_steps: [{ label: "ex", tts: "ick" }], desc: "第 1 節：ex [ɪk]" },
-          { letters: "pe", tts_sound: "speer", sub_steps: [{ label: "pe", tts: "speer" }], desc: "第 2 節 (主重音)：pe [spɪr]" },
-          { letters: "ri", tts_sound: "ree", sub_steps: [{ label: "ri", tts: "ree" }], desc: "第 3 節：ri [ri]" },
-          { letters: "ence", tts_sound: "uns", sub_steps: [{ label: "ence", tts: "uns" }], desc: "第 4 節：ence [əns]" }
+          { letters: "ex", tts_sound: "ick", sub_steps: [{ label: "ex [ɪk]", tts: "ick" }], desc: "第 1 節：ex [ɪk]" },
+          { letters: "pe", tts_sound: "speer", sub_steps: [{ label: "pe [spɪr]", tts: "speer" }], desc: "第 2 節 (主重音)：pe [spɪr]" },
+          { letters: "ri", tts_sound: "ree", sub_steps: [{ label: "ri [ri]", tts: "ree" }], desc: "第 3 節：ri [ri]" },
+          { letters: "ence", tts_sound: "uns", sub_steps: [{ label: "ence [əns]", tts: "uns" }], desc: "第 4 節：ence [əns]" }
         ],
         tip: "依序練習：ex [ɪk] ➔ pe [spɪr] ➔ ri [ri] ➔ ence [əns] ➔ experience！"
       },
@@ -504,9 +499,6 @@
       audio.play().catch(() => { if (onEndCallback) onEndCallback(); });
     }
 
-    // =========================================================================
-    // 2. 動態單字音節合成
-    // =========================================================================
     function synthesizePhonemeGroupToTts(letters, group, sylIdx, totalSyls) {
       const low = (letters || "").toLowerCase().trim();
       const posHomophone = resolvePositionAwareHomophone(low, sylIdx, totalSyls, group);
@@ -996,39 +988,78 @@
     }
 
     // =========================================================================
-    // 4. Echo 回音法與錄音比對
+    // 4. Echo 回音法與錄音比對（全平台相容性與權限檢測）
     // =========================================================================
     async function startRecording(durationMs = null) {
-      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      const statusEl = document.getElementById('echoStatus');
+      
+      // 1. 檢查是否在安全連線 (HTTPS 或 localhost)
+      const isSecure = window.isSecureContext || location.protocol === 'https:' || location.hostname === 'localhost';
+      if (!isSecure) {
+        statusEl.innerHTML = '<span class="text-rose-400 font-bold">⚠️ 錄音失敗：瀏覽器限制必須在 HTTPS 網址（如 GitHub Pages）下才能開啟麥克風！</span>';
         alert('請在 GitHub Pages (https://) 網址下開啟網頁以使用麥克風！');
         return;
       }
+
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        statusEl.innerHTML = '<span class="text-rose-400 font-bold">⚠️ 您的瀏覽器不支援麥克風錄音功能。</span>';
+        return;
+      }
+
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        mediaRecorder = new MediaRecorder(stream);
+        
+        // 2. 自動判斷瀏覽器支援的錄音格式（完美相容 iOS Safari 與 Chrome/Android）
+        let mimeType = 'audio/webm';
+        if (!MediaRecorder.isTypeSupported('audio/webm')) {
+          if (MediaRecorder.isTypeSupported('audio/mp4')) {
+            mimeType = 'audio/mp4'; // iOS Safari 專用
+          } else if (MediaRecorder.isTypeSupported('audio/aac')) {
+            mimeType = 'audio/aac';
+          } else {
+            mimeType = '';
+          }
+        }
+
+        const options = mimeType ? { mimeType } : {};
+        mediaRecorder = new MediaRecorder(stream, options);
         audioChunks = [];
-        mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+
+        mediaRecorder.ondataavailable = e => {
+          if (e.data && e.data.size > 0) audioChunks.push(e.data);
+        };
+
         mediaRecorder.onstop = () => {
-          const blob = new Blob(audioChunks, { type: 'audio/webm' });
+          const finalMime = mimeType || 'audio/webm';
+          const blob = new Blob(audioChunks, { type: finalMime });
           recordedAudioUrl = URL.createObjectURL(blob);
           document.getElementById('compareBtn').disabled = false;
           document.getElementById('recordBtn').classList.remove('recording-pulse');
           document.getElementById('recordBtn').textContent = '🎤 重新錄音';
-          document.getElementById('echoStatus').textContent = '✅ 錄音完成！點擊「連續播放對比」聽聽看自己的發音。';
+          statusEl.textContent = '✅ 錄音完成！點擊「連續播放對比」聽聽看自己的發音。';
           isRecording = false;
+          // 徹底釋放麥克風軌道，避免佔用
           stream.getTracks().forEach(t => t.stop());
         };
+
         mediaRecorder.start();
         isRecording = true;
         document.getElementById('recordBtn').classList.add('recording-pulse');
         document.getElementById('recordBtn').textContent = '⏹ 停止錄音';
+        
         if (durationMs) {
           setTimeout(() => {
             if (mediaRecorder && mediaRecorder.state === 'recording') mediaRecorder.stop();
           }, durationMs);
         }
       } catch (err) {
-        alert('無法開啟麥克風：' + err.message);
+        document.getElementById('recordBtn').classList.remove('recording-pulse');
+        isRecording = false;
+        if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+          statusEl.innerHTML = '<span class="text-rose-400 font-bold">⚠️ 麥克風權限被封鎖，請點擊網址列左側鎖頭 🔒 允許麥克風存取！</span>';
+        } else {
+          statusEl.innerHTML = `<span class="text-rose-400 font-bold">⚠️ 無法啟動錄音：${err.message}</span>`;
+        }
       }
     }
 
@@ -1062,7 +1093,9 @@
           status.textContent = '🎧 正在播放：您的錄音...';
           const myAudio = new Audio(recordedAudioUrl);
           myAudio.onended = () => { status.textContent = '✨ 比對完畢！'; };
-          myAudio.play();
+          myAudio.play().catch(e => {
+            status.textContent = '⚠️ 播放錄音失敗：' + e.message;
+          });
         }, 350);
       });
     }
