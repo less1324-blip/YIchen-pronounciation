@@ -27,8 +27,8 @@
 <body class="bg-slate-900 text-slate-100 min-h-screen font-sans p-4 md:p-8 flex flex-col justify-between">
 
   <div class="max-w-5xl mx-auto w-full space-y-6">
-    <!-- 頂部品牌與美式口音設定列 -->
-    <header class="bg-slate-800/90 border border-slate-700 rounded-2xl p-6 shadow-lg flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+    <!-- 頂部品牌標題列 -->
+    <header class="bg-slate-800/90 border border-slate-700 rounded-2xl p-6 shadow-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
       <div>
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-semibold mb-2">
           <span>🏫 懿城文教機構 · 數位教學研發</span>
@@ -38,26 +38,14 @@
         <h1 class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">
           美式英語 · 分節慢速拼讀訓練系統
         </h1>
-        <p class="text-slate-400 text-sm mt-1">美國中西部／加州標準口音 (General American) · ex 發音強制鎖定 [ɪks] · Echo 回音記憶</p>
-      </div>
-
-      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full lg:w-auto">
-        <div class="flex items-center gap-2 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs">
-          <span class="text-cyan-400 font-bold whitespace-nowrap">🇺🇸 美式口音引擎：</span>
-          <select id="voiceSelect" onchange="changeSelectedVoice()" class="bg-transparent text-slate-200 focus:outline-none max-w-[180px] truncate">
-            <option value="">自動鎖定美式加州/中西部口音</option>
-          </select>
-        </div>
-        <button onclick="testAudioEngine()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition shadow cursor-pointer whitespace-nowrap">
-          🔔 測試 ex [ɪks] 發音
-        </button>
+        <p class="text-slate-400 text-sm mt-1">分節清晰自然拼讀 · 留白跟讀記憶 · Echo 回音自我檢測</p>
       </div>
     </header>
 
     <!-- 單字搜尋與語速控制 -->
     <section class="bg-slate-800/90 border border-slate-700 rounded-2xl p-6 shadow-lg space-y-4">
       <div class="flex flex-col sm:flex-row gap-3">
-        <input id="wordInput" type="text" value="experience" placeholder="輸入任何英文單字 (例如: experience, apology, gym, debate, fantastic)..." 
+        <input id="wordInput" type="text" value="experience" placeholder="輸入英文單字 (例如: experience, impossible, synthesis, bilingual, believe)..." 
           onkeydown="if(event.key==='Enter') analyzeWord()"
           class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-lg font-medium text-white focus:outline-none focus:border-cyan-400">
         <button onclick="analyzeWord()" id="analyzeBtn"
@@ -74,7 +62,7 @@
             <button onclick="setSpeechSpeed(0.55)" id="speedBtn-0.55" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 cursor-pointer">0.55x 超慢速分解</button>
             <button onclick="setSpeechSpeed(0.7)" id="speedBtn-0.7" class="px-2.5 py-1 rounded bg-cyan-600 text-white font-bold border border-cyan-400 cursor-pointer">0.7x 慢速教學 (推薦)</button>
             <button onclick="setSpeechSpeed(0.85)" id="speedBtn-0.85" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 cursor-pointer">0.85x 自然慢速</button>
-            <button onclick="setSpeechSpeed(1.0)" id="speedBtn-1" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 cursor-pointer">1.0x 正常美式語速</button>
+            <button onclick="setSpeechSpeed(1.0)" id="speedBtn-1" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 cursor-pointer">1.0x 正常語速</button>
           </div>
         </div>
         <div class="flex items-center gap-2 w-full md:w-auto justify-end">
@@ -90,13 +78,13 @@
       <!-- 範例單字快速切換列 -->
       <div class="space-y-2 pt-1 text-xs">
         <div class="flex flex-wrap items-center gap-1.5">
-          <span class="text-amber-400 font-bold mr-1">📌 精選單字練習：</span>
+          <span class="text-amber-400 font-bold mr-1">📌 重點單字快速切換：</span>
           <div id="presetButtons" class="flex flex-wrap gap-1.5"></div>
         </div>
       </div>
     </section>
 
-    <!-- 單字總覽與分節學習核心區 -->
+    <!-- 單字總覽與步驟 1：分節拆解學習核心區 -->
     <section class="bg-slate-800/90 border border-slate-700 rounded-2xl p-6 shadow-lg space-y-6">
       <!-- 單字標題與整字發音 -->
       <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 border-b border-slate-700 pb-5">
@@ -132,7 +120,7 @@
       <div>
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
           <h3 class="text-sm font-semibold uppercase tracking-wider text-cyan-300">
-            👇 步驟 1：分節拆解學習（直接點擊下方拼音區塊，依原字真實發音帶讀）
+            👇 步驟 1：分節拆解學習（直接點擊下方拼音區塊，練習各音節發音）
           </h3>
           <div class="flex items-center gap-1.5 text-xs">
             <span class="text-slate-400">✏️ 分節微調：</span>
@@ -155,22 +143,12 @@
           <p class="text-slate-300 text-xs mt-1 leading-relaxed" id="classroomDesc"></p>
         </div>
       </div>
-
-      <!-- 步驟 2：純視覺觀摩區 -->
-      <div class="pt-2 border-t border-slate-700/60">
-        <div class="flex items-center justify-between mb-3">
-          <h3 class="text-sm font-semibold uppercase tracking-wider text-amber-300">
-            👀 步驟 2：自然發音與母音講義規則參考（純視覺觀摩區，不影響上方發音）
-          </h3>
-        </div>
-        <div id="matchedRulesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
-      </div>
     </section>
 
-    <!-- 步驟 3：Echo 回音跟讀與錄音自我檢測 -->
+    <!-- 步驟 2：Echo 回音跟讀與錄音自我檢測 -->
     <section class="bg-slate-800/90 border border-slate-700 rounded-2xl p-6 shadow-lg">
       <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-300 mb-4">
-        👇 步驟 3：Echo 回音記憶訓練 ＆ 學生錄音比對
+        👇 步驟 2：Echo 回音記憶訓練 ＆ 學生錄音比對
       </h3>
       <div class="flex flex-wrap items-center gap-4">
         <button onclick="startEchoLoop()" id="echoBtn" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-5 py-3 rounded-xl transition flex items-center gap-2 cursor-pointer">
@@ -195,8 +173,10 @@
   <script>
     // =========================================================================
     // 版權所有：懿城文教機構 - 林哲宇
-    // 徹底解決 ex 唸成 aɪks 的漏洞：
-    // 將 ex 強制對應為美式真實單字 "yiks" 或 "icks"，強制短音 [ɪks]，絕不發 ay-ks！
+    // 專項音節發音鎖定：
+    // 1. experience: ex [ɪks] , pe [pɪ] ("pih"), ri [rɪ] ("rih"), ence [əns] 
+    // 2. impossible: im [ɪm] ("imme"), pos [pɑs] ("poss"), si [sə] ("suhh"), ble [bl] ("bəl")
+    // 3. synthesis:  syn [sɪn] ("sin"), the [θə] ("thuhh"), sis [sɪs] ("siss")
     // =========================================================================
     const GITHUB_RAW_COMMIT_URL = "https://raw.githubusercontent.com/less1324-blip/YIchen-pronounciation/3efeec7870a37736168c0bf7e4007edaa45c1612/phonetic_schema.json";
     const GITHUB_RAW_MAIN_URL = "https://raw.githubusercontent.com/less1324-blip/YIchen-pronounciation/main/phonetic_schema.json";
@@ -204,52 +184,68 @@
 
     let globalSpeechRate = 0.7;
     let isGuidingSyllables = false;
+3
 
-    // 關鍵對照：強制將 ex, gy, cy 等容易被瀏覽器唸錯的音節，對應至 100% 正確的真實美式同音字
+    // 單一音節精準發音對照表
     const REAL_WORD_HOMOPHONES = {
-      "ex":   "yiks",   // 將 ex 強制對應為美式同音字 "yiks"，強制發 [ɪks] 短音，絕不唸 aɪks！
-      "gy":   "gee",    // 字尾 gy 唸 [dʒi]
-      "cy":   "see",    // 字尾 cy 唸 [si]
-      "sy":   "zee",    // 字尾 sy 唸 [zi]
-      "ty":   "tea",    // 字尾 ty 唸 [ti]
-      "dy":   "dee",    // 字尾 dy 唸 [di]
-      "ly":   "lee",    // 字尾 ly 唸 [li]
-      "ny":   "knee",   // 字尾 ny 唸 [ni]
-      "py":   "pea",    // 字尾 py 唸 [pi]
-      "by":   "bee",    // 字尾 by 唸 [bi]
-      "ry":   "ree",    // 字尾 ry 唸 [ri]
-      "my":   "me",     // 字尾 my 唸 [mi]
-      "phy":  "fee",    // 字尾 phy 唸 [fi]
-      "tion": "shun",   // 字尾 tion 唸 [ʃʌn]
-      "sion": "zhun",   // 字尾 sion 唸 [ʒʌn]
-      "ture": "cher",   // 字尾 ture 唸 [tʃɚ]
-      "ence": "uns",    // 字尾 ence 唸 [əns]
-      "ance": "uns",    // 字尾 ance 唸 [əns]
-      "ble":  "bull",   // 字尾 ble 唸
-      "ple":  "pull",   // 字尾 ple 唸
-      "de":   "di",     // 輕音 de 唸短音
-      "re":   "ri",     // 輕音 re 唸短音
-      "pre":  "pri",    // 輕音 pre 唸
-      "a":    "uh",     // 輕音 a 唸 uh
-      "o":    "uh"      // 輕音 o 唸 uh
+      "im":   "imme",   // 發 [ɪm]
+      "pos":  "poss",   // 發 [pɑs]（對應 CMU 字典 POSS = P AA1 S，徹底杜絕 pahss 唸成 [pæs]）
+      "si":   "suhh",   // 發 [sə]
+      "ble":  "buhl",   // 發 [bl]
+      "syn":  "sin",    // 發 [sɪn]
+      "sis":  "siss",   // 發 [sɪs]
+      "ex":   "ihks",   // 輕音字首 ex 發 [ɪks]（採用 ih 短母音結構，杜絕 [ɛks] 與 [aɪks]）
+      "pe":   "pih",    // 發 [pɪ]
+      "ri":   "rih",    // 發 [rɪ]
+      "ence": "uns",    // 發 [əns]
+      "ance": "uns",    // 發 [əns]
+      "be":   "bih",    // 發 [bɪ]
+      "gual": "gwull",  // 發 [gwəl]
+      "gy":   "gee",    // 字尾 gy 發 [dʒi]
+      "cy":   "see",
+      "sy":   "zee",
+      "ty":   "tea",
+      "dy":   "dee",
+      "ly":   "lee",
+      "ny":   "knee",
+      "py":   "pea",
+      "by":   "bee",
+      "ry":   "ree",
+      "my":   "me",
+      "phy":  "fee",
+      "tion": "shun",
+      "sion": "zhun",
+      "ture": "cher",
+      "ple":  "puhl",
+      "tle":  "tuhl",
+      "cle":  "kuhl",
+      "de":   "dih",
+      "re":   "rih",
+      "pre":  "prih",
+      "a":    "uh",
+      "o":    "uh"
     };
 
-    function resolvePositionAwareHomophone(letters, sylIdx, totalSyls) {
+    function resolvePositionAwareHomophone(letters, sylIdx, totalSyls, group = null) {
       const low = (letters || "").trim().toLowerCase();
       const isFirst = (sylIdx === 0);
       const isLast = (sylIdx === totalSyls - 1);
 
-      // 1. ex 在字首 ➔ 強制發 [ɪks] ("yiks")
-      if (low === "ex" && isFirst) {
-        return "yiks";
+      if (low === "the") {
+        const hasVoicedDh = group && group.some(p => p.base === "DH");
+        return hasVoicedDh ? "the" : "thuhh";
       }
-
-      // 2. gy 在字尾 ➔ 強制發 [dʒi] ("gee")
+      if (low === "ex" && isFirst) {
+        // 若第一節為主重音（如 exercise, expert），發 [ɛks] ("ex")；若為輕音字首（如 experience, excuse），發 [ɪks] 
+        const isStressed = group && group.some(p => p.stress === 1);
+        return isStressed ? "ex" : "ihks";
+      }
+      if (low === "bi" && isFirst) {
+        return "buy";
+      }
       if (low === "gy" && isLast && totalSyls > 1) {
         return "gee";
       }
-
-      // 3. gy 在字首 ➔ 強制發 [dʒ] ("juh" 或 "jim")
       if (isFirst && low.startsWith("gy")) {
         if (low === "gy") return "juh";
         if (low === "gym") return "jim";
@@ -260,7 +256,7 @@
     }
 
     const ARPABET_TO_SOUND = {
-      "AA": { kk: "ɑ",  openTts: "ah",  closedV: "ah",  isVowel: true },
+      "AA": { kk: "ɑ",  openTts: "ah",  closedV: "o",   isVowel: true },
       "AE": { kk: "æ",  openTts: "aa",  closedV: "a",   isVowel: true },
       "AH": { kk: "ʌ",  openTts: "uh",  closedV: "u",   isVowel: true },
       "AO": { kk: "ɔ",  openTts: "aw",  closedV: "aw",  isVowel: true },
@@ -301,74 +297,108 @@
       "ZH": { kk: "ʒ",  onset: "zh", coda: "zh", isVowel: false }
     };
 
+    // 內建精準單字庫
     const PRESET_DB = {
       experience: {
         word: "experience", pos: "n./v.", meaning: "經驗、經歷、體驗",
         kk_full: "[ɪkˋspɪrɪəns]",
         syllables: [
-          { letters: "ex", tts_sound: "yiks", is_stressed: false, sub_steps: [{ label: "ex", tts: "yiks" }], desc: "第 1 節 (字首 ex)：發 [ɪks]" },
-          { letters: "pe", tts_sound: "speer", is_stressed: true, sub_steps: [{ label: "pe", tts: "speer" }], desc: "第 2 節 (主重音)：pe" },
-          { letters: "ri", tts_sound: "ree", is_stressed: false, sub_steps: [{ label: "ri", tts: "ree" }], desc: "第 3 節：ri" },
-          { letters: "ence", tts_sound: "uns", is_stressed: false, sub_steps: [{ label: "en", tts: "un" }, { label: "ence", tts: "uns" }], desc: "第 4 節：ence" }
+          { letters: "ex", tts_sound: "ihks", sub_steps: [{ label: "ex", tts: "ɪks" }], desc: "第 1 節：ex [ɪks]" },
+          { letters: "pe", tts_sound: "pih", sub_steps: [{ label: "pe", tts: "pih" }], desc: "第 2 節：pe [pɪ]" },
+          { letters: "ri", tts_sound: "rih", sub_steps: [{ label: "ri", tts: "rih" }], desc: "第 3 節：ri [rɪ]" },
+          { letters: "ence", tts_sound: "uns", sub_steps: [{ label: "ence", tts: "uns" }], desc: "第 4 節：ence [əns]" }
         ],
-        tip: "點擊 ex 即可聽到標準清晰的 [ɪks] 發音！"
+        tip: "依序練習：ex [ɪks] ➔ pe [pɪ] ➔ ri [rɪ] ➔ ence [əns] ➔ experience！"
+      },
+      impossible: {
+        word: "impossible", pos: "adj.", meaning: "不可能的、辦不到的",
+        kk_full: "[ɪmˋpɑsəb!]",
+        syllables: [
+          { letters: "im", tts_sound: "imme", sub_steps: [{ label: "im", tts: "imme" }], desc: "第 1 節：im [ɪm]" },
+          { letters: "pos", tts_sound: "poss", sub_steps: [{ label: "pos", tts: "poss" }], desc: "第 2 節：pos [pɑs]" },
+          { letters: "si", tts_sound: "suhh", sub_steps: [{ label: "si", tts: "suhh" }], desc: "第 3 節：si [sə]" },
+          { letters: "ble", tts_sound: "buhl", sub_steps: [{ label: "ble", tts: "bəl" }], desc: "第 4 節：ble [bl]" }
+        ],
+        tip: "依序練習：im [ɪm] ➔ pos [pɑs] ➔ si [sə] ➔ ble [bl] ➔ impossible！"
+      },
+      synthesis: {
+        word: "synthesis", pos: "n.", meaning: "綜合、合成",
+        kk_full: "[ˋsɪnθəsɪs]",
+        syllables: [
+          { letters: "syn", tts_sound: "sin", sub_steps: [{ label: "syn", tts: "sin" }], desc: "第 1 節：syn [sɪn]" },
+          { letters: "the", tts_sound: "thuhh", sub_steps: [{ label: "the", tts: "thuhh" }], desc: "第 2 節：the [θə]" },
+          { letters: "sis", tts_sound: "siss", sub_steps: [{ label: "sis", tts: "siss" }], desc: "第 3 節：sis [sɪs]" }
+        ],
+        tip: "依序練習：syn [sɪn] ➔ the [θə] ➔ sis [sɪs] ➔ synthesis！"
+      },
+      bilingual: {
+        word: "bilingual", pos: "adj.", meaning: "雙語的、會說兩種語言的",
+        kk_full: "[baɪˋlɪŋgwəl]",
+        syllables: [
+          { letters: "bi", tts_sound: "buy", sub_steps: [{ label: "bi", tts: "buy" }], desc: "第 1 節：bi [baɪ]" },
+          { letters: "lin", tts_sound: "ling", sub_steps: [{ label: "lin", tts: "ling" }], desc: "第 2 節：lin [lɪŋ]" },
+          { letters: "gual", tts_sound: "gwull", sub_steps: [{ label: "gual", tts: "gwull" }], desc: "第 3 節：gual [gwəl]" }
+        ],
+        tip: "依序練習：bi [baɪ] ➔ lin [lɪŋ] ➔ gual [gwəl] ➔ bilingual！"
+      },
+      believe: {
+        word: "believe", pos: "v.", meaning: "相信、信任",
+        kk_full: "[bɪˋliv]",
+        syllables: [
+          { letters: "be", tts_sound: "bih", sub_steps: [{ label: "be", tts: "bih" }], desc: "第 1 節：be [bɪ]" },
+          { letters: "lieve", tts_sound: "leave", sub_steps: [{ label: "lieve", tts: "leave" }], desc: "第 2 節：lieve [liv]" }
+        ],
+        tip: "依序練習：be [bɪ] ➔ lieve [liv] ➔ believe！"
+      },
+      exercise: {
+        word: "exercise", pos: "n./v.", meaning: "運動、練習、訓練",
+        kk_full: "[ˋɛksɚˌsaɪz]",
+        syllables: [
+          { letters: "ex", tts_sound: "ex", sub_steps: [{ label: "ex", tts: "ex" }], desc: "第 1 節 (主重音)：ex [ɛks]" },
+          { letters: "er", tts_sound: "er", sub_steps: [{ label: "er", tts: "er" }], desc: "第 2 節：er [ɚ]" },
+          { letters: "cise", tts_sound: "size", sub_steps: [{ label: "cise", tts: "size" }], desc: "第 3 節：cise [saɪz]" }
+        ],
+        tip: "依序練習：ex [ɛks] ➔ er [ɚ] ➔ cise [saɪz] ➔ exercise！"
       },
       apology: {
         word: "apology", pos: "n.", meaning: "道歉、謝罪",
         kk_full: "[əˋpɑlədʒɪ]",
         syllables: [
-          { letters: "a", tts_sound: "uh", is_stressed: false, sub_steps: [{ label: "a", tts: "uh" }], desc: "第 1 節：a" },
-          { letters: "pol", tts_sound: "pahl", is_stressed: true, sub_steps: [{ label: "po", tts: "pah" }, { label: "pol", tts: "pahl" }], desc: "第 2 節 (主重音)：pol" },
-          { letters: "o", tts_sound: "uh", is_stressed: false, sub_steps: [{ label: "o", tts: "uh" }], desc: "第 3 節：o" },
-          { letters: "gy", tts_sound: "gee", is_stressed: false, sub_steps: [{ label: "gy", tts: "gee" }], desc: "第 4 節 (字尾 gy)：發 [dʒi] (gee)" }
+          { letters: "a", tts_sound: "uh", sub_steps: [{ label: "a", tts: "uh" }], desc: "第 1 節：a" },
+          { letters: "pol", tts_sound: "pahl", sub_steps: [{ label: "pol", tts: "pahl" }], desc: "第 2 節：pol" },
+          { letters: "o", tts_sound: "uh", sub_steps: [{ label: "o", tts: "uh" }], desc: "第 3 節：o" },
+          { letters: "gy", tts_sound: "gee", sub_steps: [{ label: "gy", tts: "gee" }], desc: "第 4 節：gy [dʒi]" }
         ],
-        tip: "點擊 gy 即可聽到標準的 [dʒi] 發音！"
-      },
-      gymnastics: {
-        word: "gymnastics", pos: "n.", meaning: "體操、體育訓練",
-        kk_full: "[dʒɪmˋnæstɪks]",
-        syllables: [
-          { letters: "gym", tts_sound: "jim", is_stressed: false, sub_steps: [{ label: "gym", tts: "jim" }], desc: "第 1 節 (字首 gy)：發 [dʒɪm]" },
-          { letters: "nas", tts_sound: "nass", is_stressed: true, sub_steps: [{ label: "nas", tts: "nass" }], desc: "第 2 節 (主重音)：nas" },
-          { letters: "tics", tts_sound: "ticks", is_stressed: false, sub_steps: [{ label: "tics", tts: "ticks" }], desc: "第 3 節：tics" }
-        ],
-        tip: "字首 gym 軟 G 發 [dʒɪm]。"
-      },
-      debate: {
-        word: "debate", pos: "n./v.", meaning: "辯論、討論、爭論",
-        kk_full: "[dɪˋbet]",
-        syllables: [
-          { letters: "de", tts_sound: "di", is_stressed: false, sub_steps: [{ label: "de", tts: "di" }], desc: "第 1 節：de" },
-          { letters: "bate", tts_sound: "bait", is_stressed: true, sub_steps: [{ label: "bate", tts: "bait" }], desc: "第 2 節 (主重音)：bate" }
-        ],
-        tip: "第一節 de 輕讀，第二節重音 bate。"
+        tip: "依序練習：a ➔ pol ➔ o ➔ gy ➔ apology！"
       },
       fantastic: {
         word: "fantastic", pos: "adj.", meaning: "極好的、異想天開的",
         kk_full: "[fænˋtæstɪk]",
         syllables: [
-          { letters: "fan", tts_sound: "fan", is_stressed: false, sub_steps: [{ label: "fan", tts: "fan" }], desc: "第 1 節：fan" },
-          { letters: "tas", tts_sound: "tass", is_stressed: true, sub_steps: [{ label: "tas", tts: "tass" }], desc: "第 2 節 (主重音)：tas" },
-          { letters: "tic", tts_sound: "tick", is_stressed: false, sub_steps: [{ label: "tic", tts: "tick" }], desc: "第 3 節：tic" }
+          { letters: "fan", tts_sound: "fan", sub_steps: [{ label: "fa", tts: "faa" }, { label: "fan", tts: "fan" }], desc: "第 1 節：fa ➔ fan" },
+          { letters: "tas", tts_sound: "tass", sub_steps: [{ label: "ta", tts: "taa" }, { label: "tas", tts: "tass" }], desc: "第 2 節：ta ➔ tas" },
+          { letters: "tic", tts_sound: "tick", sub_steps: [{ label: "ti", tts: "tih" }, { label: "tic", tts: "tick" }], desc: "第 3 節：ti ➔ tic" }
         ],
-        tip: "依序練習：fan · tas · tic。"
+        tip: "依序練習：fa, fan ➔ ta, tas ➔ ti, tic ➔ fantastic！"
       }
     };
 
     let currentData = PRESET_DB.experience;
     let selectedVoice = null;
-    let usVoicesList = [];
     let mediaRecorder = null;
     let audioChunks = [];
     let recordedAudioUrl = null;
     let isRecording = false;
 
+    // =========================================================================
+    // 1. 背景自動鎖定美式口音
+    // =========================================================================
     function initVoices() {
       if (!('speechSynthesis' in window)) return;
       const allVoices = window.speechSynthesis.getVoices();
       if (allVoices.length === 0) return;
 
-      usVoicesList = allVoices.filter(v => v.lang === 'en-US' || v.lang === 'en_US');
+      let usVoicesList = allVoices.filter(v => v.lang === 'en-US' || v.lang === 'en_US');
       if (usVoicesList.length === 0) {
         usVoicesList = allVoices.filter(v => v.lang.startsWith('en'));
       }
@@ -383,21 +413,6 @@
       });
 
       selectedVoice = usVoicesList[0] || allVoices[0];
-
-      const selectEl = document.getElementById('voiceSelect');
-      if (selectEl && usVoicesList.length > 0) {
-        selectEl.innerHTML = usVoicesList.map((v, idx) => 
-          `<option value="${idx}" ${v === selectedVoice ? 'selected' : ''}>🇺🇸 ${v.name}</option>`
-        ).join('');
-      }
-    }
-
-    function changeSelectedVoice() {
-      const idx = parseInt(document.getElementById('voiceSelect').value, 10);
-      if (usVoicesList[idx]) {
-        selectedVoice = usVoicesList[idx];
-        speakText(currentData.word, globalSpeechRate);
-      }
     }
 
     if ('speechSynthesis' in window) {
@@ -407,14 +422,21 @@
 
     function normalizeForReliableTts(rawText) {
       let clean = (rawText || "").trim().toLowerCase();
-      if (clean === "ex" || clean === "yiks" || clean === "icks") clean = "yiks.";
-      if (clean === "gee") clean = "gee.";
-      if (clean === "di") clean = "did.";
-      if (clean === "ri") clean = "rid.";
+      clean = clean.replace(/[.!?]+$/, "");
 
-      if (!/[.!?]$/.test(clean)) {
-        clean = clean + ".";
-      }
+      if (clean === "im" || clean === "'im" || clean === "imm") return "imme";
+      if (clean === "pos" || clean === "pahs" || clean === "pahss") return "poss";
+      if (clean === "si" || clean === "suh") return "suhh";
+      if (clean === "ble" || clean === "bull") return "buhl";
+      if (clean === "syn") return "sin";
+      if (clean === "sis") return "siss";
+      if (clean === "gual") return "gwull";
+      if (clean === "be") return "bih";
+      if (clean === "pe") return "pih";
+      if (clean === "ri") return "rih";
+      if (clean === "icks" || clean === "yiks" || clean === "ix") return "ihks";
+      if (clean === "gy") return "gee";
+
       return clean;
     }
 
@@ -451,9 +473,12 @@
       audio.play().catch(() => { if (onEndCallback) onEndCallback(); });
     }
 
+    // =========================================================================
+    // 2. 動態單字音節合成
+    // =========================================================================
     function synthesizePhonemeGroupToTts(letters, group, sylIdx, totalSyls) {
       const low = (letters || "").toLowerCase().trim();
-      const posHomophone = resolvePositionAwareHomophone(low, sylIdx, totalSyls);
+      const posHomophone = resolvePositionAwareHomophone(low, sylIdx, totalSyls, group);
       if (posHomophone) return posHomophone;
 
       if (!group || group.length === 0) return low;
@@ -465,17 +490,25 @@
       const coda = group.slice(vPos + 1).map(p => p.coda).join("");
 
       if (!coda) {
-        if (vowelObj.base === "IH") return onset + "i";
+        if (onset === "th" && !group.some(p => p.base === "DH")) return "thuhh";
+        if (onset === "s" && vowelObj.base === "AH") return "suhh";
+        if (vowelObj.base === "IH") return onset + "ih";
+        if (vowelObj.base === "AH") return onset + "uh";
+        if (vowelObj.base === "AY" && onset === "b") return "buy";
         return onset + vowelObj.openTts;
       }
-      let vMid = vowelObj.closedV;
-      if (vowelObj.base === "AH" && vowelObj.stress === 0) vMid = "u";
-      return onset + vMid + coda;
+
+      if (!onset && vowelObj.base === "IH" && coda === "m") {
+        return "imme";
+      }
+
+      return onset + vowelObj.closedV + coda;
     }
 
     function pureSyllableSplitter(word) {
       let w = word.toLowerCase().trim();
       if (w.length <= 3) return [w];
+
       const prefixes = [];
       if (/^a[bcdfghjklmnpqrstvwxz][aeiouy]/i.test(w)) {
         prefixes.push('a');
@@ -483,16 +516,25 @@
       } else if (/^ex[bcdfghjklmnpqrstvwxz]/i.test(w)) {
         prefixes.push('ex');
         w = w.slice(2);
+      } else if (/^(syn|sym)[bcdfghjklmnpqrstvwxz]/i.test(w)) {
+        prefixes.push(w.slice(0, 3));
+        w = w.slice(3);
+      } else if (/^(im|in)[bcdfghjklmnpqrstvwxz]/i.test(w)) {
+        prefixes.push(w.slice(0, 2));
+        w = w.slice(2);
+      } else if (/^(be|bi)[bcdfghjklmnpqrstvwxz][aeiouy]/i.test(w)) {
+        prefixes.push(w.slice(0, 2));
+        w = w.slice(2);
       }
 
       const suffixes = [];
-      const endMatch = w.match(/^(.+[aeiouy].*?)(tion|sion|ture|ence|ance|gy|cy|sy|ty|dy|ly|ny|py|by|ble|ple|tle|cle)$/i);
+      const endMatch = w.match(/^(.+[aeiouy].*?)(tion|sion|ture|ence|ance|cise|size|gual|ble|ple|tle|cle|sis|gy|cy|sy|ty|dy|ly)$/i);
       if (endMatch) {
         w = endMatch[1];
         suffixes.push(endMatch[2]);
       }
 
-      const digraphRegex = /(tch|dge|ch|sh|th|ph|wh|ck|ng|qu|ea|ee|oo|ou|ow|ai|ay|oi|oy|au|aw|oa|ie|ei)/gi;
+      const digraphRegex = /(tch|dge|ch|sh|th|ph|wh|ck|ng|qu|gu|ea|ee|oo|ou|ow|ai|ay|oi|oy|au|aw|oa|ie|ei)/gi;
       const tokens = [];
       let lastIdx = 0;
       let m;
@@ -507,7 +549,7 @@
         tokens[tokens.length - 2] += tokens.pop();
       }
 
-      const isVowelTok = t => /[aeiouy]/i.test(t);
+      const isVowelTok = t => /[aeiouy]/i.test(t) && !/^(qu|gu)$/i.test(t);
       const vPos = [];
       tokens.forEach((t, idx) => { if (isVowelTok(t)) vPos.push(idx); });
 
@@ -555,7 +597,7 @@
           kkFull: `[${word}]`,
           syllables: letterSyls.map((letters, idx) => {
             const homophone = resolvePositionAwareHomophone(letters, idx, letterSyls.length) || letters;
-            return { letters, tts_sound: homophone, is_stressed: idx === 0, sub_steps: [{ label: letters, tts: homophone }], desc: `第 ${idx + 1} 節` };
+            return { letters, tts_sound: homophone, sub_steps: [{ label: letters, tts: homophone }], desc: `第 ${idx + 1} 節` };
           })
         };
       }
@@ -608,7 +650,7 @@
         const coda = group.slice(vPos + 1);
 
         const subSteps = [];
-        const isLockedShortSyl = Boolean(resolvePositionAwareHomophone(lowLetters, idx, totalSyls));
+        const isLockedShortSyl = Boolean(resolvePositionAwareHomophone(lowLetters, idx, totalSyls, group));
         if (!isLockedShortSyl && coda.length > 0 && letters.length >= 3) {
           const cvMatch = letters.match(/^([^aeiouy]*(?:ea|ee|oo|ou|ow|ai|ay|oi|oy|au|aw|oa|ie|[aeiouy])+)/i);
           const cvText = cvMatch ? cvMatch[1] : letters.slice(0, -1);
@@ -622,27 +664,17 @@
         return {
           letters,
           tts_sound: exactSylTts,
-          is_stressed: isStressed,
           sub_steps: subSteps,
-          desc: `第 ${idx + 1} 節${isStressed ? ' (主重音)' : ''}`
+          desc: `第 ${idx + 1} 節：${letters}`
         };
       });
 
       return { kkFull: `[${kkFullParts.join('')}]`, syllables };
     }
 
-    function getVisualReferenceRulesOnly(word) {
-      const w = word.toLowerCase().trim();
-      const visualRules = [];
-      if (w.startsWith('ex')) visualRules.push({ pattern: "字首 ex-", kk: "[ ɪks ]", zhuyin: "ㄧㄎㄙ", cat: "字首發音規則", desc: "ex 在字首發 [ɪks]（如 experience, excuse）" });
-      if (w.endsWith('gy') && w.length > 2) visualRules.push({ pattern: "字尾 -gy", kk: "[ dʒi ]", zhuyin: "ㄐㄧ", cat: "字尾發音規則", desc: "gy 在字尾發 [dʒi]（如 apology, biology）" });
-      if (w.startsWith('gy')) visualRules.push({ pattern: "字首 gy-", kk: "[ dʒ ]", zhuyin: "ㄐ / ㄓ (軟 G)", cat: "字首發音規則", desc: "gy 在字首時發 [dʒ]（如 gym, gymnastics）" });
-      if (visualRules.length === 0) {
-        visualRules.push({ pattern: "標準美式拼讀", kk: "KK 音標", cat: "發音對照", desc: "點擊上方音節方塊聆聽真實美式口音帶讀。" });
-      }
-      return visualRules;
-    }
-
+    // =========================================================================
+    // 3. 畫面渲染
+    // =========================================================================
     function renderWordData(data) {
       currentData = data;
       const sylJoin = (data.syllables || []).map(s => s.letters).join('·') || data.word;
@@ -652,7 +684,7 @@
       document.getElementById('displayPos').textContent = data.pos || 'word';
       document.getElementById('displayMeaning').textContent = data.meaning || '';
       document.getElementById('classroomTitle').textContent = `💡 美式分節拼讀指引：${data.word}`;
-      document.getElementById('classroomDesc').textContent = data.tip || '點擊上方各節拼音方塊，系統會直接以原字真實音素慢速帶讀。';
+      document.getElementById('classroomDesc').textContent = data.tip || '點擊上方各節拼音方塊，練習各音節清晰自然發音。';
 
       const grid = document.getElementById('syllablesGrid');
       grid.innerHTML = '';
@@ -660,15 +692,15 @@
 
       (data.syllables || []).forEach((syl, sIdx) => {
         const cardId = `syl-card-${sIdx}`;
-        const isStressed = syl.is_stressed;
-        const posHomophone = resolvePositionAwareHomophone(syl.letters, sIdx, totalSyls);
-        if (posHomophone) syl.tts_sound = posHomophone;
+
+        if (!syl.tts_sound) {
+          syl.tts_sound = resolvePositionAwareHomophone(syl.letters, sIdx, totalSyls) || syl.letters;
+        }
 
         const subSteps = (syl.sub_steps && syl.sub_steps.length > 0)
           ? syl.sub_steps.map(st => {
               const cleanLabel = (st.label || syl.letters).replace(/\s*\[.*?\]/g, '').replace(/\s*\/.*?\//g, '');
-              const stepPosHomophone = resolvePositionAwareHomophone(cleanLabel, sIdx, totalSyls);
-              return { label: cleanLabel, tts: stepPosHomophone || st.tts || syl.tts_sound || syl.letters };
+              return { label: cleanLabel, tts: st.tts || syl.tts_sound || syl.letters };
             })
           : [{ label: syl.letters, tts: syl.tts_sound || syl.letters }];
 
@@ -685,15 +717,13 @@
         const card = document.createElement('div');
         card.id = cardId;
         card.onclick = () => playSingleSyllable(sIdx);
-        card.className = `step-btn rounded-2xl p-5 text-left transition cursor-pointer flex flex-col justify-between shadow border ${
-          isStressed ? 'bg-indigo-950/60 border-indigo-400/90 shadow-indigo-950/50' : 'bg-slate-900/90 border-slate-700 hover:border-cyan-400'
-        }`;
+        card.className = 'step-btn rounded-2xl p-5 text-left transition cursor-pointer flex flex-col justify-between shadow border bg-slate-900/90 border-slate-700 hover:border-cyan-400';
 
         card.innerHTML = `
           <div>
             <div class="flex justify-between items-center mb-2">
-              <span class="text-xs font-bold px-2.5 py-0.5 rounded-full ${isStressed ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' : 'bg-slate-800 text-slate-300'}">
-                第 ${sIdx + 1} 節 ${isStressed ? '⭐ 重音節' : ''}
+              <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300">
+                第 ${sIdx + 1} 節
               </span>
               <span class="text-xs text-cyan-300 font-semibold">🔊 點擊聽此節</span>
             </div>
@@ -703,43 +733,11 @@
           </div>
 
           <div class="mt-3 pt-3 border-t border-slate-800 space-y-2">
-            <div class="text-xs text-slate-400">原字拼音帶讀：</div>
+            <div class="text-xs text-slate-400">分節拼音帶讀：</div>
             <div class="flex flex-wrap items-center gap-1.5">${subBtnsHtml}</div>
-            <div class="text-xs text-slate-300 pt-1">${syl.desc || ''}</div>
           </div>
         `;
         grid.appendChild(card);
-      });
-
-      const rulesGrid = document.getElementById('matchedRulesGrid');
-      rulesGrid.innerHTML = '';
-      getVisualReferenceRulesOnly(data.word).forEach(r => {
-        const rCard = document.createElement('div');
-        rCard.className = 'bg-slate-900/70 border border-slate-700/80 rounded-xl p-4 flex flex-col justify-between gap-2';
-        rCard.innerHTML = `
-          <div class="flex items-center justify-between">
-            <span class="text-xs bg-amber-500/15 text-amber-300 border border-amber-500/30 px-2.5 py-0.5 rounded-full font-semibold">${r.cat}</span>
-            <span class="text-[11px] text-slate-400">規則觀摩</span>
-          </div>
-          <div class="flex items-baseline gap-4 my-1">
-            <div>
-              <span class="text-xs text-slate-400 block">規則</span>
-              <span class="text-xl font-extrabold text-white font-mono">${r.pattern}</span>
-            </div>
-            <span class="text-slate-500">➔</span>
-            <div>
-              <span class="text-xs text-slate-400 block">發音</span>
-              <span class="text-xl font-bold text-amber-400 font-mono">${r.kk}</span>
-            </div>
-            <span class="text-slate-500">➔</span>
-            <div>
-              <span class="text-xs text-slate-400 block">注音輔助</span>
-              <span class="text-lg font-bold text-cyan-300">${r.zhuyin}</span>
-            </div>
-          </div>
-          <p class="text-xs text-slate-300 border-t border-slate-800 pt-2">${r.desc}</p>
-        `;
-        rulesGrid.appendChild(rCard);
       });
     }
 
@@ -793,7 +791,7 @@
 
           document.getElementById('classroomTitle').innerHTML = 
             `👂 分節帶讀 (${idx + 1}/${syls.length})：請聽 <span class="text-amber-400 font-mono text-lg">${syl.letters}</span> 並開口跟讀！`;
-          document.getElementById('classroomDesc').textContent = `${syl.desc || ''} （留白 ${(pauseMs/1000).toFixed(1)} 秒供學生跟讀）`;
+          document.getElementById('classroomDesc').textContent = `留白 ${(pauseMs/1000).toFixed(1)} 秒供學生跟讀模仿`;
 
           idx++;
           speakText(syl.tts_sound || syl.letters, globalSpeechRate, () => {
@@ -838,11 +836,6 @@
           ? "px-2.5 py-1 rounded bg-cyan-600 text-white font-bold border border-cyan-400 cursor-pointer"
           : "px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 cursor-pointer";
       });
-    }
-
-    function testAudioEngine() {
-      initVoices();
-      speakText("yiks. gee. gymnastics. experience.", 0.85);
     }
 
     async function analyzeWord() {
@@ -902,7 +895,7 @@
           meaning: meaning || "已完成美式音節拆解",
           kk_full: built.kkFull,
           syllables: built.syllables,
-          tip: `已依據美國 CMU 字典真實音素與首尾位置規則，將「${rawInput}」拆解為 ${built.syllables.map(s => s.letters).join(' · ')}。`
+          tip: `已將「${rawInput}」拆解為 ${built.syllables.map(s => s.letters).join(' · ')}，請點擊各節卡片進行慢速拼讀練習。`
         };
 
         PRESET_DB[key] = newWordData;
@@ -929,9 +922,8 @@
         return {
           letters,
           tts_sound: homophone,
-          is_stressed: oldSyl.is_stressed || idx === 0,
           sub_steps: [{ label: letters, tts: homophone }],
-          desc: `第 ${idx + 1} 節`
+          desc: `第 ${idx + 1} 節：${letters}`
         };
       });
       renderWordData(currentData);
@@ -977,6 +969,78 @@
         } catch (e) {}
       }
       renderPresetButtons();
+    }
+
+    // =========================================================================
+    // 4. Echo 回音法與錄音比對
+    // =========================================================================
+    async function startRecording(durationMs = null) {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        alert('請在 GitHub Pages (https://) 網址下開啟網頁以使用麥克風！');
+        return;
+      }
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+        audioChunks = [];
+        mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+        mediaRecorder.onstop = () => {
+          const blob = new Blob(audioChunks, { type: 'audio/webm' });
+          recordedAudioUrl = URL.createObjectURL(blob);
+          document.getElementById('compareBtn').disabled = false;
+          document.getElementById('recordBtn').classList.remove('recording-pulse');
+          document.getElementById('recordBtn').textContent = '🎤 重新錄音';
+          document.getElementById('echoStatus').textContent = '✅ 錄音完成！點擊「連續播放對比」聽聽看自己的發音。';
+          isRecording = false;
+          stream.getTracks().forEach(t => t.stop());
+        };
+        mediaRecorder.start();
+        isRecording = true;
+        document.getElementById('recordBtn').classList.add('recording-pulse');
+        document.getElementById('recordBtn').textContent = '⏹ 停止錄音';
+        if (durationMs) {
+          setTimeout(() => {
+            if (mediaRecorder && mediaRecorder.state === 'recording') mediaRecorder.stop();
+          }, durationMs);
+        }
+      } catch (err) {
+        alert('無法開啟麥克風：' + err.message);
+      }
+    }
+
+    function toggleManualRecord() {
+      if (isRecording && mediaRecorder) {
+        mediaRecorder.stop();
+      } else {
+        document.getElementById('echoStatus').textContent = '🔴 正在錄音中... 請大聲唸出單字';
+        startRecording();
+      }
+    }
+
+    function startEchoLoop() {
+      const status = document.getElementById('echoStatus');
+      status.textContent = '👂 階段 1/3：請仔細聽美式標準發音...';
+      speakText(currentData.word, globalSpeechRate, () => {
+        status.textContent = '🧠 階段 2/3：請在心裡「默唸回音」2 秒鐘...';
+        setTimeout(() => {
+          status.textContent = '🗣️ 階段 3/3：請開口唸出來！（系統自動錄音 3 秒）';
+          startRecording(3000);
+        }, 2000);
+      });
+    }
+
+    function playComparison() {
+      if (!recordedAudioUrl) return;
+      const status = document.getElementById('echoStatus');
+      status.textContent = '🔊 正在播放：美式標準音...';
+      speakText(currentData.word, globalSpeechRate, () => {
+        setTimeout(() => {
+          status.textContent = '🎧 正在播放：您的錄音...';
+          const myAudio = new Audio(recordedAudioUrl);
+          myAudio.onended = () => { status.textContent = '✨ 比對完畢！'; };
+          myAudio.play();
+        }, 350);
+      });
     }
 
     window.addEventListener('DOMContentLoaded', () => {
